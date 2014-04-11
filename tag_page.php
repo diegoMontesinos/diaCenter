@@ -31,6 +31,13 @@
 	while ($row_dict_word = $result_dictionary->fetch_array()) {
 		array_push($dictionary_words, array("id" => $row_dict_word["id"], "word" => $row_dict_word["word"]));
 	}
+
+	$categories = array();
+	$sql_categories = "SELECT DISTINCT * FROM categories;";
+	$result_categories = $dbconn->query($sql_categories);
+	while($row_category = $result_categories->fetch_array()) {
+		array_push($categories, array("id" => $row_category["id"], "title" => $row_category["title"]));
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -54,8 +61,23 @@
 
 			<!-- SEARCH BAR -->
 			<div id="tools_bar">
+				
 				<div id="back">
 					<button id="back_button" type="button">BACK</button>
+				</div>
+
+				<div id="assign_all_tool">
+					<div id="assign_all_header">
+						<div id="assign_all_title">
+							<span style="position: absolute; left: 5%; top: 3px;">ASSIGN TO ALL</span>
+						</div>
+						<div id="assign_all_unfold">&or;</div>
+					</div>
+
+					<div id="assign_all_content">
+						<input type="text" id="assign_all_input" onkeypress="adding_word_press(this, event);" onkeyup="adding_word_all(this, event);" style="margin-top: 8px;">
+					</div>
+
 				</div>
 
 				<div id="dictionary_tool">
@@ -67,9 +89,8 @@
 					</div>
 
 					<div id="dictionary_content">
-
 						<div id="dictionary_actions">
-							<div id="dictionary_all">&lt; ASSOCIATE TO ALL</div>
+							<div id="dictionary_all">&lt; ASSIGN TO ALL</div>
 						</div>
 
 						<input type="text" id="search_dictionay" onkeypress="filter_dictionary(this, event);" style="margin-top: 8px;">
@@ -83,6 +104,41 @@
 								?>
 							</ul>
 						</div>
+					</div>
+				</div>
+
+				<div id="categories_tool">
+					<div id="categories_header">
+						<div id="categories_title">
+							<span style="position: absolute; left: 5%; top: 3px;">CATEGORIES</span>
+						</div>
+						<div id="categories_unfold">&or;</div>
+					</div>
+
+					<div id="categories_content">
+						<div id="categories_actions">
+							<div id="categories_all">&lt; ASSIGN TO ALL</div>
+						</div>
+
+						<input type="text" id="add_category" onkeypress="adding_word_press(this, event);" onkeyup="adding_category(this, event);" style="margin-top: 8px;">
+
+						<div id="categories_container">
+							<ul id="categories">
+								<?php
+									foreach ($categories as $category) {
+										echo "<li onclick='selectCategory(this);' id-category='".$category["id"]."'>".$category["title"]."<span onclick='delete_category(this, event);'> [x]</span></li>";
+									}
+								?>
+							</ul>
+						</div>
+
+						<input type="text" id="add_category_word" onkeypress="adding_word_press(this, event);" style="margin-top: 8px;">
+
+						<div id="categories_words_container">
+							<ul id="categories_words">
+							</ul>
+						</div>
+
 					</div>
 				</div>
 

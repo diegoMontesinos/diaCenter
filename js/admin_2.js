@@ -1,5 +1,6 @@
 var wall;
 var dictionary_unfold = false;
+var assign_all_unfold = false;
 
 function adding_word_press(input_elem, event) {
 	if(event.keyCode == 32) {
@@ -14,7 +15,6 @@ function adding_word(input_elem, event) {
 	while(new_word.lastIndexOf(" ") != -1) {
 		new_word = new_word.replace(" ", "");
 	}
-	var div_selection = $(input_elem).parent().parent();
 
 	if(event.keyCode == 13) {
 		if(new_word != "") {
@@ -36,6 +36,48 @@ function adding_word(input_elem, event) {
 			});
 		}
 	}
+}
+
+function adding_word_all(input_elem, event) {
+	var new_word = $(input_elem).val();
+	while(new_word.lastIndexOf(" ") != -1) {
+		new_word = new_word.replace(" ", "");
+	}
+
+	if(event.keyCode == 13) {
+		if(new_word != "") {
+			associate_to_all(new_word);
+			$(input_elem).val("");		
+		}
+	} else {
+		if(new_word != "") {
+			exist_word(new_word, input_elem, undefined);
+		} else {
+			$(input_elem).css({
+				"border": "1px solid #000000"
+			});
+		}
+	}
+}
+
+function delete_category(span_elem, event) {
+	event.stopPropagation();
+	event.preventDefault();
+
+	var div_selection = $(span_elem).parent();
+	var id_category = div_selection.attr("id-category");
+	console.log(id_category);
+}
+
+function selectCategory(li_elem) {
+	// Estilo
+	if($(".category_selec").length > 0) {
+		$(".category_selec").removeClass("category_selec");
+	}
+	$(li_elem).addClass("category_selec");
+
+	// Traemos las palabras asociadas
+	
 }
 
 function delete_word(span_elem, event) {
@@ -68,16 +110,22 @@ function exist_word(word, input_elem, div_select) {
 		dataType: "text",
 		success: function(data) {
 			if(data == "true") {
-				if(already_associate(div_select, word)) {
-					setTimeout(function() {
+				if(div_select != undefined) {
+					if(already_associate(div_select, word)) {
+						setTimeout(function() {
+							$(input_elem).css({
+								"border": "1px solid #FF0000"
+							});
+						}, 100);
+					} else {
 						$(input_elem).css({
-							"border": "1px solid #FF0000"
-						});
-					}, 100);
+							"border": "1px solid #000000"
+						});	
+					}
 				} else {
 					$(input_elem).css({
 						"border": "1px solid #000000"
-					});	
+					});
 				}
 			} else {
 				$(input_elem).css({
@@ -93,12 +141,10 @@ function already_associate(div_selection, word) {
 	for (var i = 0; i < words_li.length; i++) {
 		var curr_word = $(words_li[i]).html().replace(' <span onclick="delete_word(this, event);">[x]</span>', '');
 		if(curr_word == word) {
-			console.log(false);
 			return true;
 		}
 	}
 
-	console.log(false);
 	return false;
 }
 
@@ -169,6 +215,40 @@ function selectDictionaryWord(li_elem) {
 		$(li_elem).removeClass("word_dict_selec");
 	} else {
 		$(li_elem).addClass("word_dict_selec");
+	}
+}
+
+function adding_category(input_elem, event) {
+	var new_category = $(input_elem).val();
+	while(new_category.lastIndexOf(" ") != -1) {
+		new_category = new_category.replace(" ", "");
+	}
+
+	if(event.keyCode == 13) {
+		if(new_category != "") {
+			$.ajax({
+				type: "POST",
+				url: "php/store_category.php",
+				data: { "category": new_category },
+				dataType: "text",
+				success: function(data) {
+					var new_li = document.createElement("li");
+					$(new_li).append(data.replace('"', '').replace('"', '') + " <span onclick='delete_category(this, event);'>[x]</span>");
+					$(new_li).hover(function() {
+						$(this).find("span").show();
+					}, function() {
+						$(this).find("span").hide();
+					});
+
+					var ul_categories = $("#categories").find(".jspPane")[0];
+					$(ul_categories).append(new_li);
+					$(input_elem).val("");
+
+					var api = $("#categories").data('jsp');
+					api.reinitialise();
+				}
+			});
+		}
 	}
 }
 
@@ -264,6 +344,20 @@ $(function() {
 		hideFocus: true
 	});
 
+	// Scroll en categorias
+	$("#categories").jScrollPane({
+		autoReinitialise: true,
+		hideFocus: true
+	});	
+
+	// Efecto mostrar borrar categorias
+	$("#categories li").hover(function() {
+		$(this).find("span").show();
+	}, function() {
+		$(this).find("span").hide();
+	});
+
+
 	// Asocia a todas
 	$("#dictionary_all").click(function(event) {
 		var select_dict_words = $(".word_dict_selec");
@@ -274,6 +368,19 @@ $(function() {
 
 				$(select_dict_words[i]).removeClass("word_dict_selec");				
 			}
+		}
+	});
+
+	// Ocultar - mostrar asociar a todas
+	$("#assign_all_content").hide();
+	$("#assign_all_unfold").click(function() {
+		$("#assign_all_content").toggle();
+
+		assign_all_unfold = !assign_all_unfold;
+		if(assign_all_unfold) {
+			$(this).html("&and;");
+		} else {
+			$(this).html("&or;");
 		}
 	});
 
@@ -290,6 +397,7 @@ $(function() {
 		}
 	});
 
+	// Boton hacia atrás
 	$("#back_button").on("click", function(event) {
 		window.location = "index.html";
 	});
