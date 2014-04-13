@@ -132,7 +132,7 @@
 							</ul>
 						</div>
 
-						<input type="text" id="add_category_word" onkeypress="adding_word_press(this, event);" style="margin-top: 8px;">
+						<input type="text" id="add_category_word" onkeypress="adding_word_press(this, event);" onkeyup="adding_word_category(this, event);" style="margin-top: 8px;">
 
 						<div id="categories_words_container">
 							<ul id="categories_words">

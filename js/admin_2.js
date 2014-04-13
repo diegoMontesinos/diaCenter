@@ -1,6 +1,7 @@
 var wall;
 var dictionary_unfold = false;
 var assign_all_unfold = false;
+var categories_unfold = false;
 
 function adding_word_press(input_elem, event) {
 	if(event.keyCode == 32) {
@@ -11,6 +12,8 @@ function adding_word_press(input_elem, event) {
 }
 
 function adding_word(input_elem, event) {
+	var div_selection = $(input_elem).parent().parent();
+
 	var new_word = $(input_elem).val();
 	while(new_word.lastIndexOf(" ") != -1) {
 		new_word = new_word.replace(" ", "");
@@ -60,13 +63,60 @@ function adding_word_all(input_elem, event) {
 	}
 }
 
+function adding_word_category(input_elem, event) {
+	var div_selection = $(input_elem).parent();
+
+	var new_word = $(input_elem).val();
+	while(new_word.lastIndexOf(" ") != -1) {
+		new_word = new_word.replace(" ", "");
+	}
+
+	if(event.keyCode == 13) {
+		// Obtenemos la categora seleccionada
+		var select_category = $(".category_selec");
+
+		if(new_word != "" && select_category.length == 1) {
+			if(!already_associate_category(div_selection[0], new_word)) {
+				var id_category = select_category.attr("id-photo");
+				console.log(id_category);
+			} else {
+				$(input_elem).css({
+					"border": "1px solid #FF0000"
+				});
+			}
+		}
+	} else {
+		/*if(new_word != "") {
+			exist_word(new_word, input_elem, div_selection[0]);
+		} else {
+			$(input_elem).css({
+				"border": "1px solid #000000"
+			});
+		}*/
+	}	
+}
+
 function delete_category(span_elem, event) {
 	event.stopPropagation();
 	event.preventDefault();
 
-	var div_selection = $(span_elem).parent();
-	var id_category = div_selection.attr("id-category");
-	console.log(id_category);
+	var li_elem = $(span_elem).parent();
+	var id_category = li_elem.attr("id-category");
+
+	$.ajax({
+		type: "POST",
+		url: "php/delete_category.php",
+		data: { "id_category": id_category },
+		dataType: "text",
+		success: function(data) {
+			var li_elem = $(span_elem).parent();
+			var pane = li_elem.parent().parent().parent();
+
+			li_elem.remove();
+			var api = pane.data('jsp');
+			api.reinitialise();
+		}
+	});
 }
 
 function selectCategory(li_elem) {
@@ -140,6 +190,18 @@ function already_associate(div_selection, word) {
 	var words_li = $(div_selection).find(".jspPane").find("li");
 	for (var i = 0; i < words_li.length; i++) {
 		var curr_word = $(words_li[i]).html().replace(' <span onclick="delete_word(this, event);">[x]</span>', '');
+		if(curr_word == word) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function already_associate_category(div_selection, word) {
+	var words_li = $(div_selection).find(".jspPane").find("li");
+	for (var i = 0; i < words_li.length; i++) {
+		var curr_word = $(words_li[i]).html().replace(' <span onclick="delete_category(this, event);"> [x]</span></li>', '');
 		if(curr_word == word) {
 			return true;
 		}
@@ -391,6 +453,19 @@ $(function() {
 
 		dictionary_unfold = !dictionary_unfold;
 		if(dictionary_unfold) {
+			$(this).html("&and;");
+		} else {
+			$(this).html("&or;");
+		}
+	});
+
+	// Ocultar - mostrar categorias
+	$("#categories_content").hide();
+	$("#categories_unfold").click(function() {
+		$("#categories_content").toggle();
+
+		categories_unfold = !categories_unfold;
+		if(categories_unfold) {
 			$(this).html("&and;");
 		} else {
 			$(this).html("&or;");
