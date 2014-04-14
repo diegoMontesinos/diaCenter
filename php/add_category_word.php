@@ -8,7 +8,7 @@
 	$dbconn = get_db_conn();
 
 	if(!is_null($dbconn)) {
-		if(isset($_POST["idphoto"]) && isset($_POST["word"])) {
+		if(isset($_POST["id_category"]) && isset($_POST["word"])) {
 
 			// Verificamos si la palabra ya existe
 			$sql = "SELECT DISTINCT * FROM words WHERE word='".$_POST["word"]."';";
@@ -29,11 +29,13 @@
 			$id_word = $row_word["id"];
 			
 			// Guardamos la relacion
-			$sql = "INSERT INTO `photos_words`(`id_photo`, `id_word`) VALUES (".$_POST["idphoto"].", ".$id_word.");";
+			$sql = "INSERT INTO `categories_words`(`id_category`, `id_word`) VALUES (".$_POST["id_category"].", ".$id_word.");";
 			$result = $dbconn->query($sql);
 
-			// Devolvemos la palabra
-			echo json_encode(array("id" => $id_word, "word" => $_POST["word"]));
+			$response = array("id" => $id_word, "word" => $_POST["word"]); // Esta es la respuesta
+
+			// Devolvemos la palabra con su id
+			echo json_encode($response);
 
 			mysqli_close($dbconn);
 		}

@@ -38,7 +38,7 @@
 			}
 
 			// Devolvemos la palabra
-			echo json_encode($_POST["word"]);
+			echo json_encode(array("id" => $id_word, "word" => $_POST["word"]));
 		}
 
 		mysqli_close($dbconn);

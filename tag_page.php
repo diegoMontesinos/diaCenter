@@ -90,6 +90,7 @@
 
 					<div id="dictionary_content">
 						<div id="dictionary_actions">
+							<div id="dictionary_one">&lt; ASSIGN TO</div>
 							<div id="dictionary_all">&lt; ASSIGN TO ALL</div>
 						</div>
 
@@ -117,6 +118,7 @@
 
 					<div id="categories_content">
 						<div id="categories_actions">
+							<div id="categories_one">&lt; ASSIGN TO</div>
 							<div id="categories_all">&lt; ASSIGN TO ALL</div>
 						</div>
 
@@ -126,7 +128,7 @@
 							<ul id="categories">
 								<?php
 									foreach ($categories as $category) {
-										echo "<li onclick='select_category(this);' id-category='".$category["id"]."' category='".$category["title"]."'>".$category["title"]."<span onclick='delete_category(this, event);'> [x]</span></li>";
+										echo "<li onclick='select_category(this);' id-category='".$category["id"]."' category='".$category["title"]."'>".$category["title"]."<span style='margin-left: 5%;' onclick='delete_category(this, event);'> [x]</span></li>";
 									}
 								?>
 							</ul>
@@ -160,7 +162,7 @@
 								<ul class='words_select'>";
 
 						foreach ($data["words"] as &$word) {
-							$html_str = $html_str."<li id-word='".$word["id"]."' word='".$word["word"]."'>".$word["word"]." <span onclick='delete_word_photo(this, event);'>[x]</span></li>";
+							$html_str = $html_str."<li id-word='".$word["id"]."' word='".$word["word"]."'>".$word["word"]." <span style='margin-left: 4%;' onclick='delete_word_photo(this, event);'>[x]</span></li>";
 						}
 
 						$html_str =	$html_str."</ul></div></div>";

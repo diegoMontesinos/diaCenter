@@ -17,18 +17,19 @@ function add_word_photo(id_photo, word, div_selection, input_elem) {
 			"idphoto": id_photo,
 			"word": word
 		},
-		dataType: "text",
+		dataType: "json",
 		success: function(data) {
 			// Creamos el nuevo elemento de la lista
 			// y le asignamos sus funciones
 			var new_li = document.createElement("li");
-			$(new_li).append(data.replace('"', '').replace('"', '') + " <span onclick='delete_word_photo(this, event);'>[x]</span>");
+			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span style='margin-left: 4%;' onclick='delete_word_photo(this, event);'>[x]</span>");
 			$(new_li).hover(function() {
 				$(this).find("span").show();
 			}, function() {
 				$(this).find("span").hide();
 			});
-			$(new_li).attr("word", data.replace('"', '').replace('"', ''));
+			$(new_li).attr("word", data.word.replace('"', '').replace('"', ''));
+			$(new_li).attr("id-word", data.id);
 
 			// Lo agregamos donde debe de ir y 
 			// reiniciamos el scroll.
@@ -157,12 +158,15 @@ function assign_to_all(word) {
 				if(!already_assigned(select_photos[i], word, "word")) {
 					// Creamos el nuevo elemento de la lista
 					var new_li = document.createElement("li");
-					$(new_li).append(data.replace('"', '').replace('"', '') + " <span onclick='delete_word_photo(this, event);'>[x]</span>");
+					$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span style='margin-left: 4%;' onclick='delete_word_photo(this, event);'>[x]</span>");
 					$(new_li).hover(function() {
 						$(this).find("span").show();
 					}, function() {
 						$(this).find("span").hide();
 					});
+					$(new_li).attr("word", data.word);
+					$(new_li).attr("id-word", data.id);
+
 
 					// Lo agregmos a la lista y reiniciamos el scroll
 					var ul_words = $(select_photos[i]).find(".jspPane")[0];
@@ -300,7 +304,7 @@ function add_category(new_category, input_elem) {
 		success: function(data) {
 			// Creamos el nuevo elemento de la lista
 			var new_li = document.createElement("li");
-			$(new_li).append(data.replace('"', '').replace('"', '') + "<span onclick='delete_category(this, event);'>[x]</span>");
+			$(new_li).append(data.replace('"', '').replace('"', '') + "<span style='margin-left: 4%;' onclick='delete_category(this, event);'>[x]</span>");
 			$(new_li).hover(function() {
 				$(this).find("span").show();
 			}, function() {
@@ -369,6 +373,47 @@ function exist_category(category) {
 	return false;
 }
 
+/*
+ * add_category_word:
+ *   Asigna una palabra a una categoria.
+ */
+function add_category_word(id_category, word) {
+	$.ajax({
+		type: "POST",
+		url: "php/add_category_word.php",
+		data: {
+			"id_category": id_category,
+			"word": word
+		},
+		dataType: "json",
+		success: function(data) {
+			// Creamos el nuevo elemento de la lista
+			var new_li = document.createElement("li");
+			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span>[x]</span>");
+			$(new_li).hover(function() {
+				$(this).find("span").show();
+			}, function() {
+				$(this).find("span").hide();
+			});
+			$(new_li).attr("id-word", data.id);
+			$(new_li).attr("word", data.word);
+
+			// Lo agregmos a la lista y reiniciamos el scroll
+			var ul_words = $("#categories_words").find(".jspPane")[0];
+			$(ul_words).append(new_li);
+
+			var api = $("#categories_words").data('jsp');
+			api.reinitialise();
+
+			$("#add_category_word").val("");
+		}
+	});
+}
+
+/*
+ * get_words_category:
+ *   Obtiene las palabras asignadas a una categoría.
+ */
 function get_words_category(id_category) {
 	$.ajax({
 		type: "POST",
@@ -398,6 +443,25 @@ function get_words_category(id_category) {
 
 				var api = $("#categories_words").data('jsp');
 				api.reinitialise();
+			}
+		}
+	});
+}
+
+/*
+ * assing_category_all:
+ *   Asigna las palabras de una categoría a todas las fotos seleccionadas.
+ */
+function assing_category_all(id_category) {
+	$.ajax({
+		type: "POST",
+		url: "php/get_words_category.php",
+		data: { "id_category": id_category},
+		dataType: "json",
+		success: function(data) {
+			// Asignamos las palabras
+			for (var i = 0; i < data.length; i++) {
+				assign_to_all(data[i].word.replace('"', '').replace('"', ''));
 			}
 		}
 	});
@@ -456,19 +520,57 @@ function select_category(li_elem) {
 	}
 	$(li_elem).addClass("category_selec");
 
+	$("#add_category_word").val("");
+	$("#add_category_word").css({
+		"border": "1px solid #000000"
+	});
+
 	// Traemos las palabras asociadas
 	var id_category = $(li_elem).attr("id-category");
 	get_words_category(id_category);
+
+	// Mostramos las palabras
+	$("#add_category_word").show();
+	$("#categories_words_container").show();
 }
 
 /*
  * adding_word_category:
  *   Escucha el evento de tecla suelta agregando
- *   una palabra a la categoría y:
- *   1 - 
- *
+ *   una palabra a la categoría.
  */
 function adding_word_category(input_elem, event) {
+	// Obtenemos la nueva palabra y la limpiamos
+	var new_word = $(input_elem).val();
+	while(new_word.lastIndexOf(" ") != -1) {
+		new_word = new_word.replace(" ", "");
+	}
+
+	// Si le dieron Enter
+	if(event.keyCode == 13) {
+		if(new_word != "") {
+			if(!already_assigned($("#categories_words")[0], new_word, "word")) {
+				
+				var selected_category = $(".category_selec");
+				if(selected_category.length == 1) {
+					var id_category = selected_category.attr("id-category");
+					add_category_word(id_category, new_word);
+				}
+			} else {
+				$(input_elem).css({
+					"border": "1px solid #FF0000"
+				});
+			}
+		}
+	} else {
+		if(new_word != "") {
+			exist_word(new_word, input_elem, $("#categories_words")[0]);
+		} else {
+			$(input_elem).css({
+				"border": "1px solid #000000"
+			});
+		}
+	}
 }
 
 ///////////////////////////////////////////
@@ -625,9 +727,12 @@ $(function() {
 		$(this).find("span").hide();
 	});
 
+	// Oculta las palabras de categoría
+	$("#add_category_word").hide();
+	$("#categories_words_container").hide();
 
-	// Asocia a todas
-	$("#dictionary_all").click(function(event) {
+	// Asocia a todas desde diccionario
+	$("#dictionary_all").click(function (event) {
 		var select_dict_words = $(".word_dict_selec");
 
 		if(select_dict_words.length > 0) {
@@ -636,6 +741,15 @@ $(function() {
 
 				$(select_dict_words[i]).removeClass("word_dict_selec");				
 			}
+		}
+	});
+
+	// Asocia desde categorias
+	$("#categories_all").click(function (event) {
+		var selected_category = $(".category_selec");
+		if(selected_category.length == 1) {
+			var id_category = selected_category.attr("id-category");
+			assing_category_all(id_category);
 		}
 	});
 
