@@ -10,7 +10,6 @@
 	if(!is_null($dbconn)) {
 		$response = array(); // Esta es la respuesta
 
-		//$sql_images = "SELECT * FROM photos LIMIT ".$_POST["from"].", ".$_POST["nRows"].";";
 		$sql_images = "SELECT * FROM photos;";
 		$result_photos = $dbconn->query($sql_images);
 

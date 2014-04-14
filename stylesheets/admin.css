@@ -529,10 +529,23 @@
 
 	float: left;
 	margin-left: 2.4%;
-	border: 1px solid #000;	
 }
 
 .category_selec {
 	color: #FFF;
 	background: #000;
+}
+
+#categories_words {
+	width: 100%;
+	height: 150px;
+	list-style: none;
+
+	margin-left: -19%;
+	margin-top: 0px;
+}
+
+#categories_words li span {
+	cursor: pointer;
+	display: none;
 }
