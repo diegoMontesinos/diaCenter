@@ -91,6 +91,8 @@
 					<div id="dictionary_content">
 						<div id="dictionary_actions">
 							<div id="dictionary_one">&lt; ASSIGN TO</div>
+							<div id="dictionary_one_options"></div>
+
 							<div id="dictionary_all">&lt; ASSIGN TO ALL</div>
 						</div>
 
@@ -119,6 +121,7 @@
 					<div id="categories_content">
 						<div id="categories_actions">
 							<div id="categories_one">&lt; ASSIGN TO</div>
+							<div id="categories_one_options"></div>
 							<div id="categories_all">&lt; ASSIGN TO ALL</div>
 						</div>
 

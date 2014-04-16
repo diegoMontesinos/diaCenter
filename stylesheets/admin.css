@@ -15,7 +15,7 @@
 #search_by_id {
 	width: 20%;
 
-	margin-left: 10%;
+	margin-left: 6%;
 	margin-top: 25px;
 	float: left;
 
@@ -31,7 +31,7 @@
 #search_by_word {
 	width: 20%;
 
-	margin-left: 3%;
+	margin-left: 0.5%;
 	margin-top: 25px;
 	float: left;
 
@@ -42,8 +42,8 @@
 #show_all {
 	width: 7%;
 
-	margin-left: 3%;
-	margin-top: 41px;
+	margin-left: 0.5%;
+	margin-top: 40px;
 	float: left;
 
 	font-family: sans-serif;
@@ -85,10 +85,30 @@
 	cursor: pointer;
 }
 
+
+.dia_form input[type="submit"] {
+	border: 1px solid #000;
+	background: #000;
+	color: #FFFFFF;
+}
+
+.dia_form input[type="submit"]:hover {
+	background: #FFF;
+	color: #000;
+	cursor: pointer;
+}
+
+.dia_form input[type="file"] {
+	width: 94%;
+	float: left;
+	border: 1px solid #000;
+	color: #000;
+}
+
 #num_selec {
 	width: 8%;
 
-	margin-left: 12%;
+	margin-left: 3%;
 	margin-top: 45px;
 	float: left;
 
@@ -122,9 +142,19 @@
 	border: 3px solid #000;
 }
 
+.delete_photo {
+	position: relative;
+	float: left;
+	color: #FF0000;
+}
+
+.delete_photo:hover {
+	cursor: pointer;
+}
+
 .info_option {
 	font-family: sans-serif;
-	font-size: 1.2em;
+	font-size: 0.85em;
 }
 
 #got_to_tag {
@@ -156,8 +186,15 @@
 
 #error_msg_2 {
 	float: left;
-
 	color: #FF0000;
+}
+
+#error_msg_3 {
+	position: absolute;
+	float: left;
+	color: #FF0000;
+	left: 4%;
+	top: 190px;
 }
 
  /************************************/
@@ -344,6 +381,7 @@
 	width: 100%;
 	height: 450px;
 	list-style: none;
+	overflow-x: hidden;
 
 	margin-left: -19%;
 }
@@ -351,11 +389,30 @@
 #dictionary_actions {
 	width: 100%;
 	margin-top: 10px;
+
+	position: relative;
+}
+
+#dictionary_one_options, #categories_one_options {
+	width: 100%;
+	height: 150px;
+
+	position: absolute;
+	top: -10px;
+	left: -100%;
+
+	display: none;
 }
 
 #dictionary_all:hover {
 	cursor: pointer;
 	text-decoration: underline;
+}
+
+#dictionary_one:hover {
+	cursor: pointer;
+	text-decoration: underline;
+	
 }
 
 .word_dict_selec {
@@ -482,6 +539,8 @@
 #categories_actions {
 	width: 100%;
 	margin-top: 10px;
+
+	position: relative;
 }
 
 #categories_all:hover {
@@ -501,6 +560,7 @@
 	width: 100%;
 	height: 150px;
 	list-style: none;
+	overflow-x: hidden;
 
 	margin-left: -19%;
 	margin-top: 0px;
@@ -540,6 +600,7 @@
 	width: 100%;
 	height: 150px;
 	list-style: none;
+	overflow-x: hidden;
 
 	margin-left: -19%;
 	margin-top: 0px;
@@ -548,4 +609,218 @@
 #categories_words li span {
 	cursor: pointer;
 	display: none;
+}
+
+/*********** UPLOAD **************/
+
+#upload_tool {
+	width: 15%;
+	
+	float: left;
+	margin-left: 1.5%;
+	margin-top: 41px;
+
+	font-family: sans-serif;
+	font-size: 0.8em;
+
+	background: #FFF;
+}
+
+#upload_header {
+	width: 100%;
+	height: 21px;
+
+	position: relative;
+	border: 1px solid #000;
+}
+
+#upload_title {
+	width: 85%;
+	height: inherit;
+
+	float: left;
+
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#upload_unfold {
+	width: 11%;
+	height: inherit;
+
+	float: left;
+
+	font-size: 1.4em;
+	padding-left: 3.5%;
+
+	-webkit-user-select: none;  
+	-moz-user-select: none;     
+	-ms-user-select: none;      
+	-o-user-select: none;
+	user-select: none;
+}
+
+#upload_unfold:hover {
+	cursor: pointer;
+}
+
+#upload_content {
+	width: 130%;
+	height: 200px;
+
+	position: relative;
+	padding-top: 10px;
+
+	background: #FFF;
+}
+
+#upload_form {
+	width: 70%;
+	height: 21px;
+
+	margin-left: 10%;
+	padding-top: 5px;
+	padding-left: 10%;
+
+	background: #FFF;
+	border: 1px solid #000;
+
+	cursor: pointer;
+}
+
+/*** DROPZONE ***/
+.dropzone .dz-preview,
+.dropzone-previews .dz-preview {
+	background: rgba(255,255,255,0.8);
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 24px;
+	margin-left: 15%;
+}
+
+.dropzone .dz-preview.dz-file-preview [data-dz-thumbnail],
+.dropzone-previews .dz-preview.dz-file-preview [data-dz-thumbnail] {
+	display: none;
+}
+
+.dropzone .dz-preview .dz-details,
+.dropzone-previews .dz-preview .dz-details {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	background: #ebebeb;
+	padding: 5px;
+	margin-bottom: 22px;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename,
+.dropzone-previews .dz-preview .dz-details .dz-filename {
+	overflow: hidden;
+	height: 100%;
+}
+
+.dropzone .dz-preview .dz-details img,
+.dropzone-previews .dz-preview .dz-details img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+}
+
+.dropzone .dz-preview .dz-details .dz-size,
+.dropzone-previews .dz-preview .dz-details .dz-size {
+	position: absolute;
+	bottom: -28px;
+	left: 27%;
+	height: 28px;
+	line-height: 28px;
+}
+
+.dropzone .dz-preview.dz-error .dz-error-mark,
+.dropzone-previews .dz-preview.dz-error .dz-error-mark {
+	display: block;
+}
+
+.dropzone .dz-preview.dz-success .dz-success-mark,
+.dropzone-previews .dz-preview.dz-success .dz-success-mark {
+	display: block;
+	font-size: 1.6em;
+}
+
+.dropzone .dz-preview:hover .dz-details img,
+.dropzone-previews .dz-preview:hover .dz-details img {
+	display: none;
+}
+
+.dropzone .dz-preview .dz-success-mark,
+.dropzone-previews .dz-preview .dz-success-mark,
+.dropzone .dz-preview .dz-error-mark,
+.dropzone-previews .dz-preview .dz-error-mark {
+	display: none;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	font-size: 10px;
+	text-align: center;
+	right: -10px;
+	top: -10px;
+}
+
+.dropzone .dz-preview .dz-success-mark,
+.dropzone-previews .dz-preview .dz-success-mark {
+	color: #8cc657;
+}
+
+.dropzone .dz-preview .dz-error-mark,
+.dropzone-previews .dz-preview .dz-error-mark {
+	color: #ee162d;
+}
+
+.dropzone .dz-preview .dz-progress,
+.dropzone-previews .dz-preview .dz-progress {
+	position: absolute;
+	width: 100%;
+	top: 100px;
+	left: 0px;
+	right: 0px;
+	height: 6px;
+	background: #d7d7d7;
+	display: none;
+}
+
+.dropzone .dz-preview .dz-progress .dz-upload,
+.dropzone-previews .dz-preview .dz-progress .dz-upload {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 0%;
+	background-color: #8cc657;
+}
+
+.dropzone .dz-preview.dz-processing .dz-progress,
+.dropzone-previews .dz-preview.dz-processing .dz-progress {
+	display: block;
+}
+
+.dropzone .dz-preview .dz-error-message,
+.dropzone-previews .dz-preview .dz-error-message {
+	display: none;
+	position: absolute;
+	top: -5px;
+	left: -20px;
+	background: rgba(245,245,245,0.8);
+	padding: 8px 10px;
+	color: #800;
+	min-width: 140px;
+	max-width: 500px;
+	z-index: 500;
+}
+
+.dropzone .dz-preview:hover.dz-error .dz-error-message,
+.dropzone-previews .dz-preview:hover.dz-error .dz-error-message {
+	display: block;
 }

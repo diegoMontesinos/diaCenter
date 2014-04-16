@@ -300,11 +300,11 @@ function add_category(new_category, input_elem) {
 		type: "POST",
 		url: "php/add_category.php",
 		data: { "category": new_category },
-		dataType: "text",
+		dataType: "json",
 		success: function(data) {
 			// Creamos el nuevo elemento de la lista
 			var new_li = document.createElement("li");
-			$(new_li).append(data.replace('"', '').replace('"', '') + "<span style='margin-left: 4%;' onclick='delete_category(this, event);'>[x]</span>");
+			$(new_li).append(data.category.replace('"', '').replace('"', '') + "<span style='margin-left: 4%;' onclick='delete_category(this, event);'>[x]</span>");
 			$(new_li).hover(function() {
 				$(this).find("span").show();
 			}, function() {
@@ -313,7 +313,8 @@ function add_category(new_category, input_elem) {
 			$(new_li).click(function() {
 				select_category(this);
 			});
-			$(new_li).attr("category", data.replace('"', '').replace('"', ''));
+			$(new_li).attr("category", data.category.replace('"', '').replace('"', ''));
+			$(new_li).attr("id-category", data.id);
 
 			// Agregamos a la lista y reiniciamos el scroll
 			var ul_categories = $("#categories").find(".jspPane")[0];
@@ -525,6 +526,8 @@ function select_category(li_elem) {
 		"border": "1px solid #000000"
 	});
 
+	$("#categories_words").find(".jspPane").empty();
+
 	// Traemos las palabras asociadas
 	var id_category = $(li_elem).attr("id-category");
 	get_words_category(id_category);
@@ -550,7 +553,6 @@ function adding_word_category(input_elem, event) {
 	if(event.keyCode == 13) {
 		if(new_word != "") {
 			if(!already_assigned($("#categories_words")[0], new_word, "word")) {
-				
 				var selected_category = $(".category_selec");
 				if(selected_category.length == 1) {
 					var id_category = selected_category.attr("id-category");

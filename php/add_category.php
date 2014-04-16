@@ -14,8 +14,13 @@
 			$sql = "INSERT INTO `categories`(`title`) VALUES ('".$_POST["category"]."');";
 			$result = $dbconn->query($sql);
 
+			$sql = "SELECT * FROM `categories` WHERE title='".$_POST["category"]."';";
+			$result = $dbconn->query($sql);
+
+			$row = $result->fetch_array();
+
 			// Devolvemos la categoria
-			echo json_encode($_POST["category"]);
+			echo json_encode(array("id" => $row["id"], "category" => $_POST["category"]));
 
 			mysqli_close($dbconn);
 		}

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>DIA CENTER - NY</title>
 
 		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
@@ -8,8 +9,8 @@
 
 		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
 		<script type="text/javascript" src="js/freewall.js"></script>
+		<script type="text/javascript" src="js/dropzone.js"></script>
 		<script type="text/javascript" src="js/admin_1.js"></script>
-
 	</head>
 
 	<body>
@@ -35,12 +36,26 @@
 					<button id="show_all_button" type="button">SHOW ALL</button>
 				</div>
 
-				<div id="num_selec">
-					0 SELECTED
-				</div>
+				<div id="num_selec">0 SELECTED</div>
 				<div id="got_to_tag">
 					<button id="got_to_tag_button" type="button">GO TO TAG</button>
 					<span id="error_msg_2">NOTHING SELECTED!</span>
+				</div>
+
+				<div id="upload_tool">
+					<div id="upload_header">
+						<div id="upload_title">
+							<span style="position: absolute; left: 5%; top: 3px;">UPLOAD IMAGE</span>
+						</div>
+						<div id="upload_unfold">&or;</div>
+					</div>
+
+					<div id="upload_content">
+						<div id="upload_form" class="dropzone" >
+						</div>
+
+						<span id="error_msg_3">HAY UN ERROR</span>
+					</div>
 				</div>
 			</div>
 

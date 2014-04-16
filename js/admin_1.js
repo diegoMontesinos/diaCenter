@@ -1,6 +1,9 @@
 var wall;
 var pageSize = 20;
 var photo_count = 0;
+var upload_unfold = false;
+
+Dropzone.autoDiscover = false;
 
 function load_photos(from, nRows) {
 	$.ajax({
@@ -19,7 +22,23 @@ function load_photos(from, nRows) {
 
 				var divInfo = document.createElement("div");
 				$(divInfo).addClass("info_option");
-				$(divInfo).html("[ " + data[i].id + " ]");
+				
+				var divId = document.createElement("div");
+				$(divId).css({ "position" : "relative", "float" : "left" });
+				$(divId).html("[ " + data[i].id + " ]");
+				$(divInfo).append(divId);
+				
+				var divDelete = document.createElement("div");
+				$(divDelete).addClass("delete_photo");
+				$(divDelete).html("[ x ]");
+				$(divDelete).click(function(event) {
+					event.preventDefault();
+					event.stopPropagation();
+
+					delete_photo(event.toElement);
+				});
+				$(divInfo).append(divDelete);
+
 				$(divImg).append(divInfo);
 				$(divImg).attr("id-photo", data[i].id);
 
@@ -28,13 +47,94 @@ function load_photos(from, nRows) {
 				$(divImg).append(img);
 
 				$("#admin_options").append(divImg);
-				photo_count++;
 			}
 
 			correct_wall();
 		}
 	});
 };
+
+function add_photo(id_photo) {
+	$.ajax({
+		type: "POST",
+		url: "php/get_photo.php",
+		data: { "id_photo": id_photo },
+		dataType: "json",
+		success: function(data) {
+			$("#num_selec").html($(".photo_selec").length + " SELECTED");
+
+			var divImg = document.createElement("div");
+			$(divImg).addClass("photo_option");
+			$(divImg).click(function(event) { selectPhoto(this); });
+
+			var divInfo = document.createElement("div");
+			$(divInfo).addClass("info_option");
+			
+			var divId = document.createElement("div");
+			$(divId).css({ "position" : "relative", "float" : "left" });
+			$(divId).html("[ " + data.id + " ]");
+			$(divInfo).append(divId);
+			
+			var divDelete = document.createElement("div");
+			$(divDelete).addClass("delete_photo");
+			$(divDelete).html("[ x ]");
+			$(divDelete).click(function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				delete_photo(event.toElement);
+			});
+			$(divInfo).append(divDelete);
+
+			$(divImg).append(divInfo);
+			$(divImg).attr("id-photo", data.id);
+
+			var img = new Image();
+			img.onload = function() {
+				$(divImg).append(img);
+				wall.appendBlock(divImg);
+			}
+			img.src = data.url;
+		}
+	});
+}
+
+function delete_photo(div_elem) {
+	// Obtenemos el div de la foto
+	var div_selection = $(div_elem).parent().parent();
+
+	// Obtenemos el div del id
+	var id_photo = $(div_selection).attr("id-photo");
+
+	// Mandamos a borrar
+	$.ajax({
+		type: "POST",
+		url: "php/delete_photo.php",
+		data: { "id_photo": id_photo },
+		dataType: "json",
+		success: function(data) {
+			// Pregunta si estaba seleccionada
+			if($(div_selection).hasClass("photo_selec")) {
+
+				// Quitamos que esta seleccionado
+				var selected_photos = $(".photo_selec");
+				var aux = "";
+				for (var i = 0; i < selected_photos.length; i++) {
+					if(selected_photos[i] != div_selection) {
+						aux = aux + $(this).attr("id-photo") + ",";
+					}
+				}
+				$("#selected_photos").val(aux);
+				$(div_selection).removeClass("photo_selec");
+				$("#num_selec").html($(".photo_selec").length + " SELECTED");
+			}
+
+			// Lo quitamos
+			$(div_selection).remove();
+			wall.refresh();
+		}
+	});
+}
 
 function selectPhoto(div_elem) {
 	// Estilo
@@ -321,6 +421,7 @@ function clean_all(str, target) {
 $(function() {
 	$("#error_msg").hide();
 	$("#error_msg_2").hide();
+	$("#error_msg_3").hide();
 
 	wall = new freewall("#admin_options");
 
@@ -370,5 +471,73 @@ $(function() {
 			window.location = "tag_page.php?selPhotos=" + $("#selected_photos").val();
 		}
 	});
+
+	// Ocultar - mostrar uploader
+	$("#upload_content").hide();
+	$("#upload_unfold").click(function() {
+		$("#upload_content").toggle();
+
+		upload_unfold = !upload_unfold;
+		if(upload_unfold) {
+			$(this).html("&and;");
+		} else {
+			$(this).html("&or;");
+		}
+	});
+
+	// Dropzone
+	$("#upload_form").dropzone({
+		url: "php/upload_image.php",
+		paramName: "photo",
+		acceptedFiles: "image/png,image/gif,image/jpeg",
+		dictDefaultMessage: "CLICK HERE TO UPLOAD",
+		init: function() {
+			
+			var dropzoneObj = this;
+			dropzoneObj.lockUpload = false;
+
+			// Evento cuando se agrega un archivo para agregarle el boton eliminar
+			this.on("addedfile", function(file) {
+				if(dropzoneObj.lockUpload) {
+					$(file.previewElement).remove();
+				} else {
+					dropzoneObj.lockUpload = true;
+				}
+
+				$(".dz-preview").each(function() {
+					if(this != file.previewElement) {
+						$(this).remove();
+					}
+				});
+
+				$("#error_msg_3").hide();
+			});
+
+			// Cuando un archivo se subio
+			this.on("success", function(file, response) {
+				if(response != "file_exists") {
+					// Desbloqueamos las subidas
+					dropzoneObj.lockUpload = false;
+
+					// Agregamos la nueva foto al wall
+					add_photo(response);
+				} else {
+
+					$(".dz-success-mark").css({
+						"color": "#FF0000"
+					});
+					$(".dz-success-mark").html("x");
+
+					$("#error_msg_3").html("ERROR: FILE IS ALREADY UPLOADED.");
+					$("#error_msg_3").show();
+
+					// Desbloqueamos las subidas
+					dropzoneObj.lockUpload = false;
+				}
+			});
+
+		}
+	});
+
 
 });
