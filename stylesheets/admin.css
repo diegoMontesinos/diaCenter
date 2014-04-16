@@ -393,7 +393,7 @@
 	position: relative;
 }
 
-#dictionary_one_options, #categories_one_options {
+#dictionary_one_wrapper, #categories_one_wrapper {
 	width: 100%;
 	height: 150px;
 
@@ -401,7 +401,37 @@
 	top: -10px;
 	left: -100%;
 
-	display: none;
+	background: #FFF;
+}
+
+#dictionary_one_options {
+	width: 92%;
+	height: 130px;
+	margin-left: -16%;
+
+	list-style: none;
+	color: #000;
+	overflow-x: hidden;
+}
+
+#dictionary_one_options li:hover {
+	color: #FFF;
+	background: #000;
+}
+
+#categories_one_options {
+	width: 92%;
+	height: 130px;
+	margin-left: -16%;
+
+	list-style: none;
+	color: #000;
+	overflow-x: hidden;
+}
+
+#categories_one_options li:hover {
+	color: #FFF;
+	background: #000;
 }
 
 #dictionary_all:hover {
@@ -411,8 +441,23 @@
 
 #dictionary_one:hover {
 	cursor: pointer;
-	text-decoration: underline;
-	
+	text-decoration: underline;	
+}
+
+#dictionary_one > div {
+	display: none;
+}
+
+#dictionary_one:hover > div {
+	display: block;
+}
+
+#categories_one > div {
+	display: none;
+}
+
+#categories_one:hover > div {
+	display: block;
 }
 
 .word_dict_selec {

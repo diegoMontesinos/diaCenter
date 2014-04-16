@@ -35,7 +35,9 @@ function add_word_photo(id_photo, word, div_selection, input_elem) {
 			// reiniciamos el scroll.
 			var ul_words = div_selection.find(".jspPane")[0];
 			$(ul_words).append(new_li);
-			$(input_elem).val("");
+			if(input_elem != undefined) {
+				$(input_elem).val("");
+			}
 
 			var pane = div_selection.find(".words_select");
 			var api = pane.data('jsp');
@@ -285,6 +287,36 @@ function select_dictionary_word(li_elem) {
 	}
 }
 
+/*
+ * associate_dictionary_one:
+ *   Asocia todas las palabras seleccionadas del
+ *   diccionario a la foto representada por este li.
+ */
+function associate_dictionary_one(li_elem) {
+	// Obtenemos el id de la foto
+	var id_photo = $(li_elem).attr("id-photo");
+	var div_selections = $(".photo_selection");
+
+	var select_dict_words = $(".word_dict_selec");
+	if(select_dict_words.length > 0) {
+		for (var i = 0; i < select_dict_words.length; i++) {
+
+			// Obtenemos el div seleccion
+			var div_selection = undefined;
+			for (var j = 0; j < div_selections.length; j++) {
+				if($(div_selections[j]).attr("id-photo") == id_photo) {
+					div_selection = div_selections[j];
+				}
+			}
+
+			// La asociamos
+			add_word_photo(id_photo, $(select_dict_words[i]).html(), $(div_selection), undefined);
+
+			$(select_dict_words[i]).removeClass("word_dict_selec");	
+		}
+	}
+}
+
 ///////////////////////////////////////////
 //          C A T E G O R I A S          //
 ///////////////////////////////////////////
@@ -466,6 +498,48 @@ function assing_category_all(id_category) {
 			}
 		}
 	});
+}
+
+/*
+ * associate_category_one:
+ *   Asigna las palabras de una categoria a una foto
+ */
+function associate_category_one(li_elem) {
+	// Obtenemos el id de la foto
+	var id_photo = $(li_elem).attr("id-photo");
+	var div_selections = $(".photo_selection");
+
+	var selected_category = $(".category_selec");
+	if(selected_category.length == 1) {
+
+		// Obtenemos la categoria seleccionada
+		var id_category = selected_category.attr("id-category");
+
+		// Pedimos sus palabra
+		$.ajax({
+			type: "POST",
+			url: "php/get_words_category.php",
+			data: { "id_category": id_category},
+			dataType: "json",
+			success: function(data) {
+				// Asignamos las palabras
+				for (var i = 0; i < data.length; i++) {
+					// Obtenemos el div seleccion
+					var div_selection = undefined;
+					for (var j = 0; j < div_selections.length; j++) {
+						if($(div_selections[j]).attr("id-photo") == id_photo) {
+							div_selection = div_selections[j];
+						}
+					}
+
+					// La asociamos
+					add_word_photo(id_photo, data[i].word, $(div_selection), undefined);
+				}
+
+				$(".category_selec").removeClass("category_selec");
+			}
+		});
+	}
 }
 
 /*
@@ -706,6 +780,12 @@ $(function() {
 
 	// Scroll en diccionario
 	$("#words_dictionary").jScrollPane({
+		autoReinitialise: true,
+		hideFocus: true
+	});
+
+	// Scroll en associate to diccionario
+	$("#dictionary_one_options").jScrollPane({
 		autoReinitialise: true,
 		hideFocus: true
 	});
