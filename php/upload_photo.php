@@ -33,7 +33,7 @@
 			$result = $dbconn->query($sql);
 			$row = $result->fetch_array();
 
-			echo $row["id"];
+			echo $row["id"]." ".$row["url"];
 
 			$result->close();
 		}
