@@ -10,7 +10,7 @@
 	if(!is_null($dbconn)) {
 		$response = array(); // Esta es la respuesta
 
-		$sql_images = "SELECT * FROM photos ORDER BY id ASC;";
+		$sql_images = "SELECT * FROM photos ORDER BY id ASC LIMIT 0, 20;";
 		$result_photos = $dbconn->query($sql_images);
 
 		while ($row_photo = $result_photos->fetch_array()) {
