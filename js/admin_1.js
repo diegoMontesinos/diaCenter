@@ -117,10 +117,10 @@ function generate_div_photo(id_photo) {
 	/*var div_wordcount = document.createElement("div");
 	$(div_wordcount).addClass("wordcount");
 	$(div_wordcount).html("Words: " + );
-	$(div_info).append(div_wordcount);
+	$(div_info).append(div_wordcount);*/
 
 	$(div_photo).append(div_info);
-	$(div_photo).attr("id-photo", id_photo);*/
+	$(div_photo).attr("id-photo", id_photo);
 
 	return div_photo;
 }
