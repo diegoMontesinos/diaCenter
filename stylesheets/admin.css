@@ -152,6 +152,11 @@
 	cursor: pointer;
 }
 
+.wordcount {
+	position: relative;
+	float: left;
+}
+
 .info_option {
 	font-family: sans-serif;
 	font-size: 0.85em;
