@@ -1,13 +1,13 @@
 
 ///////////////////////////////////////////
-//      P A L A B R A S - F O T O S      //
+//P A L A B R A S - F O T O S//
 ///////////////////////////////////////////
 
 /*
  * add_word_photo:
- *   Asigna una palabra a una foto (la guarda en base de datos) y
- *   la coloca en la lista que debe de ir, como retroalimentacion
- *   visual.
+ * Asigna una palabra a una foto (la guarda en base de datos) y
+ * la coloca en la lista que debe de ir, como retroalimentacion
+ * visual.
  */
 function add_word_photo(id_photo, word, div_selection, input_elem) {
 	$.ajax({
@@ -48,7 +48,7 @@ function add_word_photo(id_photo, word, div_selection, input_elem) {
 
 /*
  * delete_word_photo:
- *   Elimina la asociación de una palabra con una foto.
+ * Elimina la asociación de una palabra con una foto.
  */
 function delete_word_photo(span_elem, event) {
 	// Obtenemos el div seleccion y el id de la foto
@@ -81,9 +81,9 @@ function delete_word_photo(span_elem, event) {
 
 /*
  * adding_word_photo:
- *   Escucha el evento de tecla suelta.
- *   1 - Verifica la validez de la palabra (existente y que no este asociada).
- *   2 - Agrega la palabra.
+ * Escucha el evento de tecla suelta.
+ * 1 - Verifica la validez de la palabra (existente y que no este asociada).
+ * 2 - Agrega la palabra.
  */
 function adding_word_photo(input_elem, event) {
 	// Obtenemos el div de la seleccion
@@ -120,15 +120,15 @@ function adding_word_photo(input_elem, event) {
 }
 
 ///////////////////////////////////////////
-//       A S G I N A  A  T O D O S       //
+// A S G I N AAT O D O S //
 ///////////////////////////////////////////
 
 var assign_all_unfold = false; // Bandera para desplegar herramienta
 
 /*
  * assign_to_all:
- *   Asigna una palabra a todas las fotos
- *   seleccionadas (asignacion multiple).
+ * Asigna una palabra a todas las fotos
+ * seleccionadas (asignacion multiple).
  */
 function assign_to_all(word) {
 	// Obtenemos los ids de las fotos
@@ -186,9 +186,9 @@ function assign_to_all(word) {
 
 /*
  * adding_word_all:
- *   Escucha el evento de tecla suelta y:
- *   1 - Verifica que la palabra exista y
- *   2 - Asigna a todos
+ * Escucha el evento de tecla suelta y:
+ * 1 - Verifica que la palabra exista y
+ * 2 - Asigna a todos
  */
 function adding_word_all(input_elem, event) {
 	// Obtiene la nueva palabra
@@ -217,15 +217,15 @@ function adding_word_all(input_elem, event) {
 }
 
 ///////////////////////////////////////////
-//         D I C C I O N A R I O         //
+// D I C C I O N A R I O //
 ///////////////////////////////////////////
 
-var dictionary_unfold = false;  // Bandera para desplegar herramienta
+var dictionary_unfold = false;// Bandera para desplegar herramienta
 
 /*
  * filter_dictionary:
- *   Filtra el diccionario con el prefijo
- *   de la entrada cada vez que dan Enter.
+ * Filtra el diccionario con el prefijo
+ * de la entrada cada vez que dan Enter.
  */
 function filter_dictionary(input_elem, event) {
 	// Consume la tecla si es espacio
@@ -274,8 +274,8 @@ function filter_dictionary(input_elem, event) {
 
 /*
  * select_dictionary_word:
- *   Marca como seleccionada / deseleccionada
- *   una palabra del diccionario.
+ * Marca como seleccionada / deseleccionada
+ * una palabra del diccionario.
  */
 function select_dictionary_word(li_elem) {
 	// Si el elemento ya tiene la clase asignada
@@ -289,8 +289,8 @@ function select_dictionary_word(li_elem) {
 
 /*
  * associate_dictionary_one:
- *   Asocia todas las palabras seleccionadas del
- *   diccionario a la foto representada por este li.
+ * Asocia todas las palabras seleccionadas del
+ * diccionario a la foto representada por este li.
  */
 function associate_dictionary_one(li_elem) {
 	// Obtenemos el id de la foto
@@ -321,11 +321,11 @@ function associate_dictionary_one(li_elem) {
 //          C A T E G O R I A S          //
 ///////////////////////////////////////////
 
-var categories_unfold = false;  // Bandera para desplegar herramienta
+var categories_unfold = false;// Bandera para desplegar herramienta
 
 /*
  * add_category:
- *   Agrega una nueva categoria.
+ * Agrega una nueva categoria.
  */
 function add_category(new_category, input_elem) {
 	$.ajax({
@@ -361,7 +361,7 @@ function add_category(new_category, input_elem) {
 
 /*
  * delete_category:
- *   Elimina la categoría seleccionada.
+ * Elimina la categoría seleccionada.
  */
 function delete_category(span_elem, event) {
 
@@ -392,7 +392,7 @@ function delete_category(span_elem, event) {
 
 /*
  * exist_category:
- *   Evalúa si existe la categoría.
+ * Evalúa si existe la categoría.
  */
 function exist_category(category) {
 	var categories = $("#categories").find(".jspPane").find("li");
@@ -408,7 +408,7 @@ function exist_category(category) {
 
 /*
  * add_category_word:
- *   Asigna una palabra a una categoria.
+ * Asigna una palabra a una categoria.
  */
 function add_category_word(id_category, word) {
 	$.ajax({
@@ -422,7 +422,7 @@ function add_category_word(id_category, word) {
 		success: function(data) {
 			// Creamos el nuevo elemento de la lista
 			var new_li = document.createElement("li");
-			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span>[x]</span>");
+			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span onclick='delete_category_word(this, event);'>[x]</span>");
 			$(new_li).hover(function() {
 				$(this).find("span").show();
 			}, function() {
@@ -445,7 +445,7 @@ function add_category_word(id_category, word) {
 
 /*
  * get_words_category:
- *   Obtiene las palabras asignadas a una categoría.
+ * Obtiene las palabras asignadas a una categoría.
  */
 function get_words_category(id_category) {
 	$.ajax({
@@ -461,7 +461,7 @@ function get_words_category(id_category) {
 			for (var i = 0; i < data.length; i++) {
 				// Creamos el nuevo elemento de la lista
 				var new_li = document.createElement("li");
-				$(new_li).append(data[i].word.replace('"', '').replace('"', '') + " <span>[x]</span>");
+				$(new_li).append(data[i].word.replace('"', '').replace('"', '') + " <span onclick='delete_category_word(this, event);'>[x]</span>");
 				$(new_li).hover(function() {
 					$(this).find("span").show();
 				}, function() {
@@ -482,8 +482,41 @@ function get_words_category(id_category) {
 }
 
 /*
+ * delete_category_word:
+ *   Elimina una palabra de su categoría.
+ */
+function delete_category_word(span_elem, event) {
+	// Obtiene el id de la palabra
+	var id_word = $(span_elem).parent().attr("id-word");
+
+	var selected_category = $(".category_selec");
+	if(selected_category.length == 1) {
+
+		// Obtenemos la categoria seleccionada
+		var id_category = selected_category.attr("id-category");
+
+		// Pedimos eliminarla
+		$.ajax({
+			type: "POST",
+			url: "php/delete_category_word.php",
+			data: { "id_category": id_category, "id_word": id_word},
+			dataType: "text",
+			success: function(data) {
+
+				// La quitamos
+				$(span_elem).parent().remove();
+
+				// Reiniciamos el scroll
+				var api = $("#categories_words").data('jsp');
+				api.reinitialise();
+			}
+		});
+	}
+}
+
+/*
  * assing_category_all:
- *   Asigna las palabras de una categoría a todas las fotos seleccionadas.
+ * Asigna las palabras de una categoría a todas las fotos seleccionadas.
  */
 function assing_category_all(id_category) {
 	$.ajax({
@@ -502,7 +535,7 @@ function assing_category_all(id_category) {
 
 /*
  * associate_category_one:
- *   Asigna las palabras de una categoria a una foto
+ * Asigna las palabras de una categoria a una foto
  */
 function associate_category_one(li_elem) {
 	// Obtenemos el id de la foto
@@ -544,9 +577,9 @@ function associate_category_one(li_elem) {
 
 /*
  * adding_category:
- *   Escucha el evento de tecla suelta y:
- *   - Verifica que no exista la categoría.
- *   - Agrega la nueva categoria si presionan Enter.
+ * Escucha el evento de tecla suelta y:
+ * - Verifica que no exista la categoría.
+ * - Agrega la nueva categoria si presionan Enter.
  */
 function adding_category(input_elem, event) {
 	// Obtenemos la categoría
@@ -585,8 +618,8 @@ function adding_category(input_elem, event) {
 
 /*
  * select_category:
- *   Marca una categoría como seleccionada
- *   y despliega las palabras asignadas a ella.
+ * Marca una categoría como seleccionada
+ * y despliega las palabras asignadas a ella.
  */
 function select_category(li_elem) {
 	// Estilo
@@ -613,8 +646,8 @@ function select_category(li_elem) {
 
 /*
  * adding_word_category:
- *   Escucha el evento de tecla suelta agregando
- *   una palabra a la categoría.
+ * Escucha el evento de tecla suelta agregando
+ * una palabra a la categoría.
  */
 function adding_word_category(input_elem, event) {
 	// Obtenemos la nueva palabra y la limpiamos
@@ -650,14 +683,14 @@ function adding_word_category(input_elem, event) {
 }
 
 ///////////////////////////////////////////
-//           F U N C I O N E S           //
-//          A U X I L I A R E S          //
+// F U N C I O N E S //
+//A U X I L I A R E S//
 ///////////////////////////////////////////
 
 /*
  * typing_input:
- *   Escucha el evento de tecla presionada, lo único
- *   que hace es evitar que pongan espacios.
+ * Escucha el evento de tecla presionada, lo único
+ * que hace es evitar que pongan espacios.
  */
 function typing_input(input_elem, event) {
 	// Si se presiono la tecla espacio se consume la tecla
@@ -670,8 +703,8 @@ function typing_input(input_elem, event) {
 
 /*
  * already_assigned:
- *   Verifica si la palabra ya se encuentra asignada, es decir,
- *   dentro del div_selection se encuentra una lista con la palabra.
+ * Verifica si la palabra ya se encuentra asignada, es decir,
+ * dentro del div_selection se encuentra una lista con la palabra.
  */
 function already_assigned(div_selection, word, attr_name) {
 	var words_li = $(div_selection).find(".jspPane").find("li");
@@ -687,9 +720,9 @@ function already_assigned(div_selection, word, attr_name) {
 
 /*
  * exist_word:
- *   Verifica si la palabra existe y pone el input_elem
- ¡   de un color que notifica al usuario si esta comentiendo
- *   un error.
+ * Verifica si la palabra existe y pone el input_elem
+ ¡ de un color que notifica al usuario si esta comentiendo
+ * un error.
  */
 function exist_word(word, input_elem, div_select) {
 	$.ajax({
@@ -726,7 +759,7 @@ function exist_word(word, input_elem, div_select) {
 }
 
 /****************************
- ***      M  A  I  N      ***
+ ***MAIN***
  ****************************/
 
  var wall; // El muro de las fotos
@@ -756,6 +789,11 @@ $(function() {
 				wall.fitWidth();
 			}, 505);
 		}
+	});
+
+	// Zoom en las imágenes
+	$(".photo_img").elevateZoom({
+		borderSize: 0
 	});
 
 	// Efecto mostrar borrar palabras

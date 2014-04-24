@@ -31,7 +31,11 @@
 				$photo_id = $row["id"];
 				$photo_url = $row["url"];
 
-				array_push($response, array("id" => $photo_id, "url" => $photo_url));
+				$sql_count = "SELECT COUNT(*) FROM photos_words WHERE id_photo = ".$photo_id.";";
+				$result_count = $dbconn->query($sql_count);
+				$row_count = $result_count->fetch_array();
+
+				array_push($response, array("id" => $photo_id, "url" => $photo_url, "count" => $row_count[0]));
 			}
 
 			$result->close();
@@ -47,7 +51,11 @@
 					$photo_id = $row["id"];
 					$photo_url = $row["url"];
 
-					array_push($response, array("id" => $photo_id, "url" => $photo_url));
+					$sql_count = "SELECT COUNT(*) FROM photos_words WHERE id_photo = ".$photo_id.";";
+					$result_count = $dbconn->query($sql_count);
+					$row_count = $result_count->fetch_array();
+
+					array_push($response, array("id" => $photo_id, "url" => $photo_url, "count" => $row_count[0]));
 				}
 
 				$result->close();
@@ -66,7 +74,11 @@
 				$photo_id = $row["id"];
 				$photo_url = $row["url"];
 
-				array_push($response, array("id" => $photo_id, "url" => $photo_url));
+				$sql_count = "SELECT COUNT(*) FROM photos_words WHERE id_photo = ".$photo_id.";";
+				$result_count = $dbconn->query($sql_count);
+				$row_count = $result_count->fetch_array();
+
+				array_push($response, array("id" => $photo_id, "url" => $photo_url, "count" => $row_count[0]));
 			}
 
 			$result->close();

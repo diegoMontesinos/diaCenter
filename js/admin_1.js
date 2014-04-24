@@ -27,7 +27,7 @@ function load_photos(from, nRows) {
 			$("#num_selec").html($(".photo_selec").length + " SELECTED");
 
 			for (var i = 0; i < data.length; i++) {
-				var div_photo = generate_div_photo(data[i].id); // Se crea el div
+				var div_photo = generate_div_photo(data[i].id, data[i].count); // Se crea el div
 
 				// Se le agrega la foto
 				var img = new Image();
@@ -85,7 +85,7 @@ function delete_photo(div_elem) {
 /*
  * generate_div_photo:
  */
-function generate_div_photo(id_photo) {
+function generate_div_photo(id_photo, word_count) {
 	// Crea el div, se le asigna click y clase
 	var div_photo = document.createElement("div");
 	$(div_photo).addClass("photo_option");
@@ -114,10 +114,10 @@ function generate_div_photo(id_photo) {
 	$(div_info).append(div_delete);
 
 	// Wordcount
-	/*var div_wordcount = document.createElement("div");
+	var div_wordcount = document.createElement("div");
 	$(div_wordcount).addClass("wordcount");
-	$(div_wordcount).html("Words: " + );
-	$(div_info).append(div_wordcount);*/
+	$(div_wordcount).html("WORDS: " + word_count);
+	$(div_info).append(div_wordcount);
 
 	$(div_photo).append(div_info);
 	$(div_photo).attr("id-photo", id_photo);
@@ -240,7 +240,7 @@ function search_photos_id(search_string) {
 				for (var i = 0; i < data.length; i++) {
 					// Evitamos poner algo que ya pusimos
 					if(ids[data[i].id] == undefined) {
-						var div_photo = generate_div_photo(data[i].id);
+						var div_photo = generate_div_photo(data[i].id, data[i].count);
 
 						// Se le agrega la foto
 						var img = new Image();
@@ -288,7 +288,7 @@ function search_photos_word(search_string) {
 					for (var i = 0; i < data.length; i++) {
 						// Evitamos poner algo que ya pusimos
 						if(ids[data[i].id] == undefined) {
-							var div_photo = generate_div_photo(data[i].id);
+							var div_photo = generate_div_photo(data[i].id, data[i].count);
 
 							// Se le agrega la foto
 							var img = new Image();
@@ -577,7 +577,7 @@ $(function() {
 					$("#admin_options").empty();
 					$("#num_selec").html($(".photo_selec").length + " SELECTED");
 
-					var div_photo = generate_div_photo(data_response[0]);
+					var div_photo = generate_div_photo(data_response[0], 0);
 
 					// Se le agrega la foto
 					var img = new Image();

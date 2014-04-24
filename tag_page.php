@@ -53,6 +53,7 @@
 		<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
 		<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
 		<script type="text/javascript" src="js/freewall.js"></script>
+		<script type="text/javascript" src="js/jquery.elevateZoom-3.0.8.min.js"></script>
 		<script type="text/javascript" src="js/admin_2.js"></script>
 	</head>
 
@@ -179,7 +180,7 @@
 						$html_str = 
 						"<div class='photo_selection' id-photo='".$data["id"]."'>
 							<div class='info_selection'>[".$data["id"]."]</div>
-							<img src='".$data["url"]."'>
+							<img class='photo_img' src='".$data["url"]."' data-zoom-image='".$data["url"]."' />
 
 							<div class='words_photo_container'>
 								<span style='font-family: sans-serif; font-size: 0.89em; margin-left: 15%;'>ASSIGNED</span>
