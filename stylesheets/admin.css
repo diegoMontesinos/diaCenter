@@ -125,6 +125,35 @@ button[type="button"] {
 	font-size: 0.85em;
 }
 
+.play_button {
+	width: 13%;
+	height: 22px;
+	float: left;
+	background: #000;
+	cursor: pointer;
+	margin-left: 2%;
+	margin-top: 2px;
+}
+
+.progress_play_container {
+	width: 68%;
+	height: 3px;
+	float: left;
+	position: relative;
+	border: 1px solid #000;
+	background: #FFF;
+	margin-top: -3px;
+	margin-left: 15%;
+}
+
+.progress_play {
+	width: 50%;
+	height: 3px;
+
+	background: #000;
+	position: absolute;
+}
+
 #got_to_tag {
 	width: 11%;
 

@@ -119,6 +119,18 @@ function adding_word_photo(input_elem, event) {
 	}
 }
 
+function random_word(input_elem) {
+	$.ajax({
+		type: "POST",
+		url: "php/word_random.php",
+		dataType: "json",
+		success: function(data) {
+			$(input_elem).val(data.word);
+			input_elem.focus();
+		}
+	});
+}
+
 ///////////////////////////////////////////
 //         A S G I N A AT O D O S        //
 ///////////////////////////////////////////
@@ -947,7 +959,7 @@ $(function() {
 		var that = this;
 		var img = $(this).parent().parent().find("img");
 		img.load(function() {
-			$(that).css({"height" : ($(this).height() - 20) + "px"});
+			$(that).css({"height" : ($(img).height()) + "px"});
 			$(that).jScrollPane({
 				autoReinitialise: true,
 				hideFocus: true
@@ -1090,5 +1102,12 @@ $(function() {
 	// Boton hacia atrás
 	$("#back_button").on("click", function(event) {
 		window.location = "index.html";
+	});
+
+	// Boton de play
+	$(".play_button").click(function() {
+		var input_elem = $(this).parent().find("input");
+		$(input_elem).attr("play", "1");
+		random_word(input_elem);
 	});
 });

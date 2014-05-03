@@ -227,7 +227,10 @@
 
 							<div class='words_photo_container'>
 								<span style=\"font-family: 'Playfair Display', serif; font-size: 0.89em; margin-left: 15%;\">ASSIGNED</span>
-								<input type='text' class='input_new_word' onkeypress='typing_input(this, event);' onkeyup='adding_word_photo(this, event);'>
+								<input type='text' class='input_new_word' onkeypress='typing_input(this, event);' onkeyup='adding_word_photo(this, event);' play='0' />
+								<div class='play_button'>
+									<img src='images/shuffle.png' style='width: 69%; height: 19px; margin-left: 13%; margin-top: 2px;' />
+								</div>
 
 								<ul class='words_select'>";
 
