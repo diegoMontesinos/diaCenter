@@ -1,4 +1,8 @@
 
+button[type="button"] {
+	font-family: 'Playfair Display', serif;
+}
+
 #search_bar {
 	width: 100%;
 	height: 100px;
@@ -18,7 +22,7 @@
 	margin-top: 25px;
 	float: left;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 }
 
@@ -34,7 +38,7 @@
 	margin-top: 25px;
 	float: left;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 }
 
@@ -45,7 +49,7 @@
 	margin-top: 40px;
 	float: left;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 }
 
@@ -53,12 +57,14 @@
 	border: 1px solid #000;
 	background: #000;
 	color: #FFF;
+	font-family: 'Playfair Display', serif;
 }
 
 #show_all button:hover {
 	background: #FFF;
 	color: #000;
 	cursor: pointer;
+	font-family: 'Playfair Display', serif;
 }
 
 
@@ -69,7 +75,7 @@
 	margin-top: 45px;
 	float: left;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 1.0em;
 }
 
@@ -115,7 +121,7 @@
 }
 
 .info_option {
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.85em;
 }
 
@@ -125,7 +131,7 @@
 	margin-top: 41px;
 	float: left;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 }
 
@@ -133,16 +139,18 @@
 	border: 1px solid #000;
 	background: #000;
 	color: #FFF;
+	font-family: 'Playfair Display', serif;
 }
 
 #got_to_tag button:hover {
 	background: #FFF;
 	color: #000;
 	cursor: pointer;
+	font-family: 'Playfair Display', serif;
 }
 
 #empty_info {
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 1em;
 }
 
@@ -185,7 +193,7 @@
 	margin-top: 41px;
 	float: left;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 }
 
@@ -193,12 +201,14 @@
 	border: 1px solid #000;
 	background: #000;
 	color: #FFF;
+	font-family: 'Playfair Display', serif;
 }
 
 #back button:hover {
 	background: #FFF;
 	color: #000;
 	cursor: pointer;
+	font-family: 'Playfair Display', serif;
 }
 
 #admin_selection {
@@ -222,7 +232,7 @@
 }
 
 .info_selection {
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 1.2em;
 }
 
@@ -241,7 +251,7 @@
 	float: left;
 
 	border: 1px solid #000;
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 }
 
 .words_photo_container input[type="text"]:focus {
@@ -259,7 +269,7 @@
 }
 
 .words_select li {
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 }
 
@@ -278,7 +288,7 @@
 	margin-left: 1.5%;
 	margin-top: 33px;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 
 	background: #FFF;
@@ -325,7 +335,7 @@
 #dictionary_tool input[type="text"] {
 	width: 80%;
 	border: 1px solid #000;
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 }
 
 #dictionary_tool input[type="text"]:focus {
@@ -355,7 +365,7 @@
 	position: relative;
 }
 
-#dictionary_one_wrapper, #categories_one_wrapper {
+#dictionary_one_wrapper, #categories_one_wrapper, #synonyms_one_wrapper {
 	width: 100%;
 	height: 150px;
 
@@ -427,16 +437,167 @@
 	background: #000;
 }
 
+.definition_mark {
+	width: 10%;
+	float: right;
+	margin-right: 2%;
+}
+
+.definition_mark:hover {
+	cursor: pointer;
+	text-decoration: underline;	
+}
+
+.definition {
+	margin-top: 4px;
+	margin-left: 7%;
+	width: 80%;
+	font-style: oblique;	
+}
+
+/*********** SYNONYMS TOOL ****************/
+
+#synonyms_tool {
+	width: 16%;
+	
+	float: left;
+	margin-left: 20%;
+	margin-top: 33px;
+
+	font-family: 'Playfair Display', serif;
+	font-size: 0.8em;
+
+	background: #FFF;
+}
+
+#synonyms_header {
+	width: 100%;
+	height: 21px;
+
+	position: relative;
+	border: 1px solid #000;
+}
+
+#synonyms_title {
+	width: 85%;
+	height: inherit;
+
+	float: left;
+
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#synonyms_unfold {
+	width: 11%;
+	height: inherit;
+
+	float: left;
+
+	font-size: 1.4em;
+	padding-left: 3.5%;
+
+	-webkit-user-select: none;  
+	-moz-user-select: none;     
+	-ms-user-select: none;      
+	-o-user-select: none;
+	user-select: none;
+}
+
+#synonyms_unfold:hover {
+	cursor: pointer;
+}
+
+#no_synonyms {
+	margin-top: 14px;
+	margin-left: 4%;
+}
+
+.synonym_selec {
+	background: #000;
+	color: #FFF;
+}
+
+#synonyms_tool input[type="text"] {
+	width: 80%;
+	border: 1px solid #000;
+	font-family: 'Playfair Display', serif;
+}
+
+#synonyms_tool input[type="text"]:focus {
+	outline: none;
+}
+
+#synonyms_content {
+	width: 100%;
+	height: 200px;
+	background: #FFF;
+}
+
+#synonyms_actions {
+	width: 100%;
+	margin-top: 10px;
+
+	position: relative;
+}
+
+#synonyms_all:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#synonyms_one:hover {
+	cursor: pointer;
+	text-decoration: underline;	
+}
+
+#synonyms_one > div {
+	display: none;
+}
+
+#synonyms_one:hover > div {
+	display: block;
+}
+
+#synonyms_one_options {
+	width: 92%;
+	height: 130px;
+	margin-left: -12%;
+
+	list-style: none;
+	color: #000;
+	overflow-x: hidden;
+}
+
+#synonyms_one_options li:hover {
+	color: #FFF;
+	background: #000;
+}
+
+#synonyms_container {
+	width: 100%;
+	margin-top: -12px;
+}
+
+#synonyms {
+	width: 100%;
+	height: 130px;
+	list-style: none;
+	overflow-x: hidden;
+
+	margin-left: -16%;
+}
+
 /*********** ASSIGN ALL TOOL ****************/
 
 #assign_all_tool {
 	width: 16%;
 	
 	float: left;
-	margin-left: 34%;
+	margin-left: 1.5%;
 	margin-top: 33px;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 
 	background: #FFF;
@@ -483,7 +644,7 @@
 #assign_all_tool input[type="text"] {
 	width: 80%;
 	border: 1px solid #000;
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 }
 
 #assign_all_tool input[type="text"]:focus {
@@ -499,7 +660,7 @@
 	margin-left: 1.5%;
 	margin-top: 33px;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 
 	background: #FFF;
@@ -583,7 +744,7 @@
 	border: 1px solid #000;
 
 	margin-left: 2.4%;
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 }
 
 #add_category:focus, #add_category_word:focus {
@@ -627,7 +788,7 @@
 	margin-left: 1.5%;
 	margin-top: 41px;
 
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.8em;
 
 	background: #FFF;

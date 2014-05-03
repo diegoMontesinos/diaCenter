@@ -9,6 +9,7 @@
 	height: 320px;
 	float: left;
 	border: 1px solid #000000;
+	font-family: 'Playfair Display', serif;
 }
 
 #search_str_word {
@@ -18,7 +19,7 @@
 }
 
 #photo_count, #word_count {
-	font-family: sans-serif;
+	font-family: 'Playfair Display', serif;
 	font-size: 0.89em;
 }
 

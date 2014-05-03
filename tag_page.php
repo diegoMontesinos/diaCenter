@@ -45,6 +45,7 @@
 	<head>
 		<title>DIA CENTER - NY</title>
 
+		<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic'>
 		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/admin.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/jquery.jscrollpane.css">
@@ -67,6 +68,47 @@
 					<button id="back_button" type="button">BACK</button>
 				</div>
 
+				<!-- SINONIMOS -->
+				<div id="synonyms_tool">
+					
+					<div id="synonyms_header">
+						<div id="synonyms_title">
+							<span style="position: absolute; left: 5%; top: 3px;">SYNONYMS</span>
+						</div>
+						<div id="synonyms_unfold">&or;</div>
+					</div>
+
+					<div id="synonyms_content">
+						
+						<div id="synonyms_actions">
+							<div id="synonyms_one">&lt; ASSIGN TO
+								<div id="synonyms_one_wrapper">
+									<div id="synonyms_one_conatiner">
+										<ul id="synonyms_one_options">
+											<?php
+												foreach ($selectionData as &$data) {
+													echo "<li onclick='associate_synonyms_one(this);' id-photo='".$data["id"]."'>".$data["id"]."</li>";
+												}
+											?>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div id="synonyms_all">&lt; ASSIGN TO ALL</div>
+						</div>
+
+						<input type="text" id="synonyms_input" onkeypress="typing_input(this, event);" onkeyup="searching_synonyms(this, event);" style="margin-top: 8px; margin-left: 3%;">
+
+						<div id="synonyms_container">
+							<div id="no_synonyms">NO SYNONYMS FOUNDED</div>
+							<ul id="synonyms"></ul>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- ASIGNA TODO -->
 				<div id="assign_all_tool">
 					<div id="assign_all_header">
 						<div id="assign_all_title">
@@ -76,11 +118,11 @@
 					</div>
 
 					<div id="assign_all_content">
-						<input type="text" id="assign_all_input" onkeypress="typing_input(this, event);" onkeyup="adding_word_all(this, event);" style="margin-top: 8px;">
+						<input type="text" id="assign_all_input" onkeypress="typing_input(this, event);" onkeyup="adding_word_all(this, event);" style="margin-top: 8px; margin-left: 3%;">
 					</div>
-
 				</div>
 
+				<!-- DICCIONARIO -->
 				<div id="dictionary_tool">
 					<div id="dictionary_header">
 						<div id="dictionary_title">
@@ -108,13 +150,13 @@
 							<div id="dictionary_all">&lt; ASSIGN TO ALL</div>
 						</div>
 
-						<input type="text" id="search_dictionay" onkeypress="filter_dictionary(this, event);" style="margin-top: 8px;">
+						<input type="text" id="search_dictionay" onkeypress="filter_dictionary(this, event);" style="margin-top: 8px; margin-left: 3%;">
 
 						<div id="words_dictionary_container">
 							<ul id="words_dictionary">
 								<?php
 									foreach ($dictionary_words as &$dict_word) {
-										echo "<li onclick='select_dictionary_word(this);' id-word='".$dict_word["id"]."'>".$dict_word["word"]."</li>";
+										echo "<li onclick='select_dictionary_word(this);' word='".$dict_word["word"]."' id-word='".$dict_word["id"]."'>".$dict_word["word"]." <span class='definition_mark' onclick='show_definition(this, event);'>?</span></li>";
 									}
 								?>
 							</ul>
@@ -122,6 +164,7 @@
 					</div>
 				</div>
 
+				<!-- CATEGORIAS -->
 				<div id="categories_tool">
 					<div id="categories_header">
 						<div id="categories_title">
@@ -149,7 +192,7 @@
 							<div id="categories_all">&lt; ASSIGN TO ALL</div>
 						</div>
 
-						<input type="text" id="add_category" onkeypress="typing_input(this, event);" onkeyup="adding_category(this, event);" style="margin-top: 8px;">
+						<input type="text" id="add_category" onkeypress="typing_input(this, event);" onkeyup="adding_category(this, event);" style="margin-top: 8px; margin-left: 3%;">
 
 						<div id="categories_container">
 							<ul id="categories">
@@ -161,7 +204,7 @@
 							</ul>
 						</div>
 
-						<input type="text" id="add_category_word" onkeypress="typing_input(this, event);" onkeyup="adding_word_category(this, event);" style="margin-top: 8px;">
+						<input type="text" id="add_category_word" onkeypress="typing_input(this, event);" onkeyup="adding_word_category(this, event);" style="margin-top: 8px; margin-left: 3%;">
 
 						<div id="categories_words_container">
 							<ul id="categories_words"></ul>
@@ -183,7 +226,7 @@
 							<img class='photo_img' src='".$data["url"]."' data-zoom-image='".$data["url"]."' />
 
 							<div class='words_photo_container'>
-								<span style='font-family: sans-serif; font-size: 0.89em; margin-left: 15%;'>ASSIGNED</span>
+								<span style=\"font-family: 'Playfair Display', serif; font-size: 0.89em; margin-left: 15%;\">ASSIGNED</span>
 								<input type='text' class='input_new_word' onkeypress='typing_input(this, event);' onkeyup='adding_word_photo(this, event);'>
 
 								<ul class='words_select'>";

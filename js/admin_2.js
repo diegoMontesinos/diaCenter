@@ -120,7 +120,7 @@ function adding_word_photo(input_elem, event) {
 }
 
 ///////////////////////////////////////////
-// A S G I N AAT O D O S //
+//         A S G I N A AT O D O S        //
 ///////////////////////////////////////////
 
 var assign_all_unfold = false; // Bandera para desplegar herramienta
@@ -202,7 +202,7 @@ function adding_word_all(input_elem, event) {
 		if(new_word != "") {
 			// Se asigna a todos
 			assign_to_all(new_word);
-			$(input_elem).val("");		
+			$(input_elem).val("");
 		}
 	} else {
 		// Verificamos que exista la palabra
@@ -256,10 +256,11 @@ function filter_dictionary(input_elem, event) {
 					// Llenamos con las palabras obtenidas
 					var new_li = document.createElement("li");
 					$(new_li).attr("id-word", data[i]["id"]);
+					$(new_li).attr("word", data[i]["word"]);
 					$(new_li).on("click", function() {
 						select_dictionary_word(this);
 					});
-					$(new_li).html(data[i]["word"]);
+					$(new_li).html(data[i]["word"] + "<span class='definition_mark' onclick='show_definition(this, event);'>?</span>");
 
 					$("#words_dictionary .jspPane").append(new_li);
 				};
@@ -310,10 +311,56 @@ function associate_dictionary_one(li_elem) {
 			}
 
 			// La asociamos
-			add_word_photo(id_photo, $(select_dict_words[i]).html(), $(div_selection), undefined);
+			add_word_photo(id_photo, $(select_dict_words[i]).attr("word"), $(div_selection), undefined);
 
 			$(select_dict_words[i]).removeClass("word_dict_selec");	
 		}
+	}
+}
+
+function show_definition(span_elem, event) {
+	// Evitamos que se seleccione
+	event.stopPropagation();
+	event.preventDefault();
+
+	var li_elem = $(span_elem).parent();
+
+	if(li_elem.find(".definition").length > 0) {
+		$(".definition").remove();
+	} else {
+		var id_word = $(span_elem).parent().attr("id-word");
+
+		// Mandamos a que se busque la definicion
+		$.ajax({
+			type: "POST",
+			url: "php/search_definition.php",
+			data: { "id_word": id_word },
+			dataType: "json",
+			success: function(data) {
+				$(".definition").remove();
+				var def_html = "NO DEFINITION FOUND";
+
+				if(data.length > 0) {
+					for (var i = 0; i < data.length; i++) {
+						var sub_definitions = data[i].definition.split(";");
+						def_html = "";
+						for (var j = 0; j < sub_definitions.length; j++) {
+							def_html += sub_definitions[j] + ";<br>";
+						}
+					}
+				}
+
+				var div_def = document.createElement("div");
+				def_html += "<br>";
+				$(div_def).html(def_html);
+				$(div_def).addClass("definition");
+				$(div_def).click(function(event) {
+					event.stopPropagation();
+					event.preventDefault();
+				});
+				$(div_def).appendTo(li_elem);
+			}
+		});
 	}
 }
 
@@ -758,8 +805,100 @@ function exist_word(word, input_elem, div_select) {
 	});
 }
 
+///////////////////////////////////////////
+//           S I N O N I M O S           //
+///////////////////////////////////////////
+
+var synonyms_unfold = false; // Bandera para desplegar herramienta
+
+function searching_synonyms(input_elem, event) {
+	// Obtiene la palabra
+	var word = $(input_elem).val();
+	while(word.lastIndexOf(" ") != -1) {
+		word = word.replace(" ", "");
+	}
+
+	// Si presionaron Enter
+	if(event.keyCode == 13) {
+		if(word != "") {
+			// Buscamos sus sinonimos
+			search_synonyms(word);
+			$(input_elem).val("");
+		}
+	}
+}
+
+function search_synonyms(word) {
+	$.ajax({
+		type: "POST",
+		url: "php/search_synonyms.php",
+		data: {
+			"word": word
+		},
+		dataType: "json",
+		success: function(data) {
+			var ul_words = $("#synonyms").find(".jspPane")[0];
+			$(ul_words).empty();
+			$("#no_synonyms").hide();
+
+			if(data.length > 0) {
+				for (var i = 0; i < data.length; i++) {
+					var new_li = document.createElement("li");
+					$(new_li).html(data[i].word.replace('"', '').replace('"', ''));
+					$(new_li).attr("word", data[i].word.replace('"', '').replace('"', ''));
+					$(new_li).attr("id-word", data[i].id);
+					$(new_li).click(function() {
+						if($(this).hasClass("synonym_selec")) {
+							$(this).removeClass("synonym_selec");
+						} else {
+							$(this).addClass("synonym_selec");
+						}
+					});
+
+					// Lo agregamos donde debe de ir y reiniciamos el scroll.	
+					$(ul_words).append(new_li);
+				};
+				
+				var api = $("#synonyms").data('jsp');
+				api.reinitialise();
+			} else {
+				$("#no_synonyms").show();
+			}
+		}
+	});
+}
+
+/*
+ * associate_synonyms_one:
+ * Asocia todas los sinonimos a la foto representada por este li.
+ */
+function associate_synonyms_one(li_elem) {
+	// Obtenemos el id de la foto
+	var id_photo = $(li_elem).attr("id-photo");
+	var div_selections = $(".photo_selection");
+
+	var select_synonyms = $(".synonym_selec");
+	if(select_synonyms.length > 0) {
+		for (var i = 0; i < select_synonyms.length; i++) {
+
+			// Obtenemos el div seleccion
+			var div_selection = undefined;
+			for (var j = 0; j < div_selections.length; j++) {
+				if($(div_selections[j]).attr("id-photo") == id_photo) {
+					div_selection = div_selections[j];
+				}
+			}
+
+			// La asociamos
+			add_word_photo(id_photo, $(select_synonyms[i]).attr("word"), $(div_selection), undefined);
+
+			$(select_synonyms[i]).removeClass("synonym_selec");
+		}
+	}
+}
+
 /****************************
- ***MAIN***
+ ***	      MAIN 	      ***
  ****************************/
 
  var wall; // El muro de las fotos
@@ -840,6 +979,14 @@ $(function() {
 		hideFocus: true
 	});
 
+	// Scroll en sinonimos
+	$("#synonyms").jScrollPane({
+		autoReinitialise: true,
+		hideFocus: true
+	});
+
+	$("#no_synonyms").hide();
+
 	// Efecto mostrar borrar categorias
 	$("#categories li").hover(function() {
 		$(this).find("span").show();
@@ -857,7 +1004,8 @@ $(function() {
 
 		if(select_dict_words.length > 0) {
 			for (var i = 0; i < select_dict_words.length; i++) {
-				assign_to_all($(select_dict_words[i]).html());
+				var word = $(select_dict_words[i]).attr("word");
+				assign_to_all(word);
 
 				$(select_dict_words[i]).removeClass("word_dict_selec");				
 			}
@@ -870,6 +1018,33 @@ $(function() {
 		if(selected_category.length == 1) {
 			var id_category = selected_category.attr("id-category");
 			assing_category_all(id_category);
+		}
+	});
+
+	// Asocia a todas desde sinonimos
+	$("#synonyms_all").click(function (event) {
+		var select_synonyms = $(".synonym_selec");
+
+		if(select_synonyms.length > 0) {
+			for (var i = 0; i < select_synonyms.length; i++) {
+				var word = $(select_synonyms[i]).attr("word");
+				assign_to_all(word);
+
+				$(select_synonyms[i]).removeClass("synonym_selec");				
+			}
+		}
+	});
+
+	// Ocultar - mostrar sinonimos
+	$("#synonyms_content").hide();
+	$("#synonyms_unfold").click(function() {
+		$("#synonyms_content").toggle();
+
+		synonyms_unfold = !synonyms_unfold;
+		if(synonyms_unfold) {
+			$(this).html("&and;");
+		} else {
+			$(this).html("&or;");
 		}
 	});
 
