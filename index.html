@@ -2,72 +2,49 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>DIA CENTER - NY</title>
+		<title>DIA CENTER - NY - PUBLICO</title>
 
 		<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic'>
 		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
-		<link rel="stylesheet" type="text/css" href="stylesheets/admin.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/public.css">
 
 		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
-		<script type="text/javascript" src="js/freewall.js"></script>
-		<script type="text/javascript" src="js/dropzone.js"></script>
-		<script type="text/javascript" src="js/admin_1.js"></script>
+		<script type="text/javascript" src="js/public.js"></script>
 	</head>
 
 	<body>
-		<div id="dia_container">
-
-			<!-- SEARCH BAR -->
-			<div id="search_bar">
-
-				<div id="search_by_id" class="dia_form">
-					<span>SEARCH BY ID</span><span id="error_msg">HAY UN ERROR</span>
-					<input type="text" id="search_str_id" >
-					<button type="button" id="search_id_button">SEARCH</button>
-				</div>
-
-				<div id="search_by_word" class="dia_form">
-					<span>SEARCH BY WORD</span>
-					
-					<input type="text" id="search_str_word">
-					<button type="button" id="search_id_word">SEARCH</button>
-				</div>
-
-				<div id="show_all">
-					<button id="show_all_button" type="button">SHOW ALL</button>
-				</div>
-
-				<div id="num_selec">0 SELECTED</div>
-				<div id="got_to_tag">
-					<button id="got_to_tag_button" type="button">GO TO TAG</button>
-					<span id="error_msg_2">NOTHING SELECTED!</span>
-				</div>
-
-				<div id="upload_tool">
-					<div id="upload_header">
-						<div id="upload_title">
-							<span style="position: absolute; left: 5%; top: 3px;">UPLOAD IMAGE</span>
-						</div>
-						<div id="upload_unfold">&or;</div>
-					</div>
-
-					<div id="upload_content">
-						<div id="upload_form" class="dropzone" >
-						</div>
-
-						<span id="error_msg_3">HAY UN ERROR</span>
-					</div>
-				</div>
+		<div id="search_word_container">
+			<div class="dia_form" style="width: 50%;">
+				<span style="float: left;">SEARCH BY WORD</span>
+				<input id="search_str_word" type="text" onkeypress="typing_input(this, event);" onkeyup="searching_word(this, event);" >
 			</div>
-
-			<!-- ADMIN CONTENT -->
-			<div class="admin_content">
-				<input type="hidden" id="selected_photos" value="">
-
-				<div id="admin_options">
-				</div>
-			</div>
-
 		</div>
+
+		<div style="width: 25%; float: left;">
+			<div id="words">
+			</div>
+
+			<div id="word_count" style="float: left;">
+				0 / 0
+			</div>
+
+			<div style="float: right;">
+				<span id="prev_word"> < </span> <span id="next_word"> > </span>
+			</div>
+		</div>
+
+		<div style="width: 26%; float: left; margin-left: 5%;">
+			<div id="photo_show" style="width: 100%;">
+			</div>
+
+			<div id="photo_count" style="float: left;">
+				0 / 0
+			</div>
+
+			<div style="float: right;">
+				<span id="prev_photo"> < </span> <span id="next_photo"> > </span>
+			</div>
+		</div>
+
 	</body>
 </html>

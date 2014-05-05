@@ -53,6 +53,11 @@ function search_photos_word(word, update_words) {
 					if(update_words) {
 						search_words_photo(photos[0].id, word);
 					}
+
+					// AGREGUE PALABRA EXITOSA
+				} else {
+					// MENSAJE NO HUBO PALABRAS
+					// AGREGUE PALABRA NO EXITOSA
 				}
 			}
 		});

@@ -1054,9 +1054,9 @@ $(function() {
 
 		synonyms_unfold = !synonyms_unfold;
 		if(synonyms_unfold) {
-			$(this).html("&and;");
+			$(this).find("img").attr("src", "images/toggle_2.jpeg");
 		} else {
-			$(this).html("&or;");
+			$(this).find("img").attr("src", "images/toggle_1.jpeg");
 		}
 	});
 
@@ -1067,9 +1067,9 @@ $(function() {
 
 		assign_all_unfold = !assign_all_unfold;
 		if(assign_all_unfold) {
-			$(this).html("&and;");
+			$(this).find("img").attr("src", "images/toggle_2.jpeg");
 		} else {
-			$(this).html("&or;");
+			$(this).find("img").attr("src", "images/toggle_1.jpeg");
 		}
 	});
 
@@ -1080,9 +1080,9 @@ $(function() {
 
 		dictionary_unfold = !dictionary_unfold;
 		if(dictionary_unfold) {
-			$(this).html("&and;");
+			$(this).find("img").attr("src", "images/toggle_2.jpeg");
 		} else {
-			$(this).html("&or;");
+			$(this).find("img").attr("src", "images/toggle_1.jpeg");
 		}
 	});
 
@@ -1093,15 +1093,15 @@ $(function() {
 
 		categories_unfold = !categories_unfold;
 		if(categories_unfold) {
-			$(this).html("&and;");
+			$(this).find("img").attr("src", "images/toggle_2.jpeg");
 		} else {
-			$(this).html("&or;");
+			$(this).find("img").attr("src", "images/toggle_1.jpeg");
 		}
 	});
 
 	// Boton hacia atrás
 	$("#back_button").on("click", function(event) {
-		window.location = "index.html";
+		window.location = "admin.php";
 	});
 
 	// Boton de play

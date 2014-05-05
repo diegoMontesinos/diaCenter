@@ -1,45 +1,53 @@
 <?php
 	require 'php/config_db.php';
 
-	$dbconn = get_db_conn();
+	// Retomamos o abrimos la sesion
+	session_start();
 
-	$selectedPhotos =  explode(",", $_GET["selPhotos"]);
-	$selectionData = array();
-	foreach ($selectedPhotos as &$select) {
-		if($select != "") {
-			$sql_photo = "SELECT * FROM photos WHERE id=".$select.";";
-			$result_photo = $dbconn->query($sql_photo);
+	// Si el usuario no esta logeado lo mandamos a logear
+	if(!isset($_SESSION["id_user"])) {
+		header("location: login.php");
+	} else {
+		$dbconn = get_db_conn();
+		
+		$selectedPhotos = explode(",", $_GET["selPhotos"]);
+		$selectionData = array();
+		foreach ($selectedPhotos as &$select) {
+			if($select != "") {
+				$sql_photo = "SELECT * FROM photos WHERE id=".$select.";";
+				$result_photo = $dbconn->query($sql_photo);
 
-			$row = $result_photo->fetch_array();
-			$photo_url = $row["url"];
+				$row = $result_photo->fetch_array();
+				$photo_url = $row["url"];
 
-			$sql_words = "SELECT DISTINCT * FROM words INNER JOIN photos_words ON words.id=photos_words.id_word WHERE photos_words.id_photo = ".$select.";";
-			$result_words = $dbconn->query($sql_words);
-			$words = array();
-			while ($row_word = $result_words->fetch_array()) {
-				array_push($words, array("id" => $row_word["id"], "word" => $row_word["word"]));
+				$sql_words = "SELECT DISTINCT * FROM words INNER JOIN photos_words ON words.id=photos_words.id_word WHERE photos_words.id_photo = ".$select.";";
+				$result_words = $dbconn->query($sql_words);
+				$words = array();
+				while ($row_word = $result_words->fetch_array()) {
+					array_push($words, array("id" => $row_word["id"], "word" => $row_word["word"]));
+				}
+
+				array_push($selectionData, array("id" => $select, "url" => $photo_url, "words" => $words));
 			}
-
-			array_push($selectionData, array("id" => $select, "url" => $photo_url, "words" => $words));
 		}
-	}
 
-	// Sacando las primeras palabras del diccionario
-	$dictionary_words = array();
-	$sql_dictionary = "SELECT DISTINCT * FROM words LIMIT 0, 100;";
-	$result_dictionary = $dbconn->query($sql_dictionary);
-	while ($row_dict_word = $result_dictionary->fetch_array()) {
-		array_push($dictionary_words, array("id" => $row_dict_word["id"], "word" => $row_dict_word["word"]));
-	}
+		// Sacando las primeras palabras del diccionario
+		$dictionary_words = array();
+		$sql_dictionary = "SELECT DISTINCT * FROM words LIMIT 0, 100;";
+		$result_dictionary = $dbconn->query($sql_dictionary);
+		while ($row_dict_word = $result_dictionary->fetch_array()) {
+			array_push($dictionary_words, array("id" => $row_dict_word["id"], "word" => $row_dict_word["word"]));
+		}
 
-	$categories = array();
-	$sql_categories = "SELECT DISTINCT * FROM categories;";
-	$result_categories = $dbconn->query($sql_categories);
-	while($row_category = $result_categories->fetch_array()) {
-		array_push($categories, array("id" => $row_category["id"], "title" => $row_category["title"]));
-	}
-?>
+		$categories = array();
+		$sql_categories = "SELECT DISTINCT * FROM categories;";
+		$result_categories = $dbconn->query($sql_categories);
+		while($row_category = $result_categories->fetch_array()) {
+			array_push($categories, array("id" => $row_category["id"], "title" => $row_category["title"]));
+		}
+	?>
 
+<!-- TAG PAGE HTML -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 	<head>
@@ -75,7 +83,9 @@
 						<div id="synonyms_title">
 							<span style="position: absolute; left: 5%; top: 3px;">SYNONYMS</span>
 						</div>
-						<div id="synonyms_unfold">&or;</div>
+						<div id="synonyms_unfold" class="admin_unfold">
+							<img src="images/toggle_1.jpeg">
+						</div>
 					</div>
 
 					<div id="synonyms_content">
@@ -114,7 +124,9 @@
 						<div id="assign_all_title">
 							<span style="position: absolute; left: 5%; top: 3px;">ASSIGN TO ALL</span>
 						</div>
-						<div id="assign_all_unfold">&or;</div>
+						<div id="assign_all_unfold" class="admin_unfold">
+							<img src="images/toggle_1.jpeg">
+						</div>
 					</div>
 
 					<div id="assign_all_content">
@@ -128,7 +140,9 @@
 						<div id="dictionary_title">
 							<span style="position: absolute; left: 5%; top: 3px;">ENGLISH DICTIONARY</span>
 						</div>
-						<div id="dictionary_unfold">&or;</div>
+						<div id="dictionary_unfold" class="admin_unfold">
+							<img src="images/toggle_1.jpeg">
+						</div>
 					</div>
 
 					<div id="dictionary_content">
@@ -170,7 +184,9 @@
 						<div id="categories_title">
 							<span style="position: absolute; left: 5%; top: 3px;">CATEGORIES</span>
 						</div>
-						<div id="categories_unfold">&or;</div>
+						<div id="categories_unfold" class="admin_unfold">
+							<img src="images/toggle_1.jpeg">
+						</div>
 					</div>
 
 					<div id="categories_content">
@@ -249,3 +265,7 @@
 	</body>
 
 </html>
+<!-- END TAG PAGE HTML -->
+		<?php
+	}
+?>

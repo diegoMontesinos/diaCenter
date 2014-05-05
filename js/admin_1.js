@@ -530,9 +530,9 @@ $(function() {
 
 		upload_unfold = !upload_unfold;
 		if(upload_unfold) {
-			$(this).html("&and;");
+			$(this).find("img").attr("src", "images/toggle_2.jpeg");
 		} else {
-			$(this).html("&or;");
+			$(this).find("img").attr("src", "images/toggle_1.jpeg");
 		}
 	});
 
