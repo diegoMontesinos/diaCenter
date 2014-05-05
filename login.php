@@ -84,14 +84,19 @@
 						<input name="login" type="submit" value="LOGIN">
 					</div> 
 				</form>
+
+				<?php
+					if(isset($credentials)) {
+						if($credentials["status"] == 0) {
+							echo "<div class='error_login'>INCORRECT USER!</div>";
+						}
+						if($credentials["status"] == 1) {
+							echo "<div class='error_login'>INCORRECT PASSWORD!</div>";
+						}
+					}
+				?>
 			</div>
 		</div>
 
-		<?php
-			if(isset($credentials)) {
-				if($credentials["status"] == 2) { // Codigo de exito
-				}		
-			}
-		?>
 	</body>
 </html>

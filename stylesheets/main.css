@@ -64,3 +64,11 @@
 	border: 1px solid #000;
 	color: #000;
 }
+
+.error_login {
+	float: right;
+	margin-right: 3%;
+	margin-top: 17px;
+	color: #FF0000;
+	font-family: 'Playfair Display', serif;
+}
