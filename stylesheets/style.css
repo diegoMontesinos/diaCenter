@@ -1,0 +1,360 @@
+body {
+	background: #FFFFFF;
+	color: #9693a8;
+	font-family: 'Playfair Display', serif;
+	padding:0;  margin:0; width: 100%
+}
+
+#guia {
+	position: absolute;
+	left: 50%;
+	margin-left: -671px;
+	top: 0px;
+	z-index: -1;
+	display: none;
+}
+
+#sizeW {
+	position: fixed;
+	left: 10px;
+	top: 10px;
+	font-size: 20px;
+}
+
+#mainContainer {
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -600px;
+	overflow: hidden;
+	width: 1200px;
+	height: 100%;
+	min-height:850px;
+}
+
+input {
+	text-transform: lowercase;
+	box-sizing: border-box;
+	position: absolute;
+	left: 0px;
+	top: 40px;
+	background-color: #e9eadf;
+	color: #A8A8A8;
+	border:none;
+	width: 477px;
+	height: 60px;
+	vertical-align: center;
+	padding-left: 10px;
+	font-size: 1.5em;
+	font-family: 'Playfair Display', serif;
+}
+
+.ui-loader {
+	display: none;
+}
+
+input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
+	outline: none;
+}
+
+/*  palabra buscada */
+#searchedWord {
+	box-sizing: border-box;
+	position: absolute;
+	left: 0px;
+	top: 106px;
+	width: 477px;
+	height: 412px;
+	background-color: #e9eadf;
+	font-size: 38px;
+	color: #000000;
+	padding-top: 5px;
+	padding-left: 10px;
+}
+
+#searchedWordCounter {
+	position: absolute;
+	left: 10px;
+	top: 528px;
+	font-size: 16px;
+	color: #000000;
+}
+
+#searchedWordFlechas {
+	position: absolute;
+	left: 388px;
+	top: 524px;
+	font-size: 16px;
+	color: #000000;
+}
+/* imagen buscada */
+
+#searchedImage {
+	box-sizing: border-box;
+	display: inline-block;
+	position: absolute;
+	left: 483px;
+	top:40px;
+	width: 717px;
+	height: 478px;
+	/*background-color: #e9eadf;*/
+}
+
+#searchedImageCounter {
+	position: absolute;
+	left: 494px;
+	top: 528px;
+	font-size: 16px;
+	color: #000000;
+}
+
+#searchedImageFlechas {
+	position: absolute;
+	left: 1108px;
+	top: 524px;
+	font-size: 16px;
+	color: #000000;
+}
+
+.flechas {
+	display: inline;
+	font-size: 24px;
+	color: #A8A8A8;
+	cursor: pointer;
+}
+.der {
+	margin-left: 60px;
+}
+
+/*  listas de la particioacion colectiva */
+.words {
+	font-size: 16px;
+}
+
+#words {
+	position: absolute;
+	bottom: 80px;
+	/*top: auto;*/
+	/*background-color: #ff0000;*/
+	width: 1200px;
+}
+
+.words div {
+	margin-left: 30px;
+	width: 1140px;
+	/*display: inline-block;*/
+	/*float: left;*/
+}
+
+#successfulWords img {
+	position: absolute;
+	left: 0px;
+	bottom: 78px;
+}
+
+#successfulWords span {
+	cursor: pointer;
+}
+
+#unsuccessfulWords img {
+	position: absolute;
+	left: 0px;
+	bottom: 20px;
+}
+
+#successfulWords div {
+	position: absolute;
+	left: 10px;
+	bottom: 62px;
+	color: #000000;
+	width: -webkit-calc(100% - 40px);
+    width: -moz-calc(100% - 40px);
+	width: calc(100% - 40px);
+	overflow: hidden;
+	height: 40px;
+
+	/*background-color: #ffaaaa;*/
+}
+
+#unsuccessfulWords div {
+	position: absolute;
+	left: 10px;
+	bottom: 0px;
+	width: -webkit-calc(100% - 40px);
+    width: -moz-calc(100% - 40px);
+	width: calc(100% - 40px);
+	overflow: hidden;
+	height: 40px;
+	/*background-color: #ffaaaa;*/
+}
+
+.words span {
+	margin-right: 20px;
+	display: inline-block;
+}
+
+/*@media (max-height: 850px){
+	#mainContainer {
+		height: 850px;
+	}
+}*/
+
+/* --------------------------------------------
+   Visualización iPad en modo Landscape
+-------------------------------------------- */
+
+
+
+
+/* --------------------------------------------
+   Visualización iPad en modo portrait
+-------------------------------------------- */
+/*
+@media (max-width: 768px) {
+	#mainContainer {
+		width: 728px;
+		margin-left: -364px;
+		height: 100%;
+	}
+
+	
+}*/
+
+/* --------------------------------------------
+   Visualización móviles 600px
+-------------------------------------------- */
+/* 950*/ 
+/*  */
+
+/*media=”handheld, only screen and (max-device-width: 480px)	*/
+@media screen and (max-width: 1024px) {
+	#mainContainer {
+		box-sizing: border-box;
+		display: inline-block;
+		clear: both;
+		float: none;
+		left: 0px;
+		top: 0px;
+		margin:0px;
+		width: 100%;
+	}
+
+	input {
+		display: block;
+		box-sizing: border-box;
+		top: 10px;
+		left: 10px;
+		width: -webkit-calc(100% - 20px);
+    	width: -moz-calc(100% - 20px);
+		width: calc(100% - 20px); 
+
+		font-size: 2em;
+		margin: 0px;
+		margin-bottom: 0px;
+		height: 60px;
+	}
+
+	#searchedWord {
+		box-sizing: border-box;
+		//display: block;
+		clear: both;
+		float: none;
+		width: -webkit-calc(100% - 20px);
+    	width: -moz-calc(100% - 20px);
+		width: calc(100% - 20px); 
+		left: 10px;
+		top: 75px;
+
+		margin: 0px;
+		margin-top: 0px;
+		font-size: 2em;
+		height: 60px;
+		line-height: 47px;
+		
+	}
+
+	#searchedImage {
+		display: inline-block;
+		width: -webkit-calc(100% - 20px);
+    	width: -moz-calc(100% - 20px);
+		width: calc(100% - 20px); 
+		left: 10px;
+		top: 175px;
+		background-color: #fff;
+		height: auto;
+
+	}
+
+	#searchedImage img {
+		width: 100%;
+	}
+
+	#searchedWordCounter {
+		position: absolute;
+		left: 20px;
+		top: 142px;
+	}
+
+	#searchedWordFlechas {
+		position: absolute;
+		left: auto;
+		right: 20px;
+		top: 138px;
+	}
+	
+	#searchedImageCounter {
+		position: absolute;
+		left: 10px;
+		top: 802px;
+	}
+
+	#searchedImageFlechas {
+		position: absolute;
+		left: 0px;
+		top: 795px;
+	}
+
+	#words {
+		position: fixed;
+		background-color: #fff; 
+		width: 100%;
+		height: 80px;
+		bottom: 0px;
+		left: 0px;
+
+	}
+
+	.words div {
+		margin-left: 0px;
+		width: 100%;
+		font-size: 1.2em;
+	}
+
+	#successfulWords img {
+		position: absolute;
+		left: 10px;
+		bottom: 50px;
+	}
+
+	#unsuccessfulWords img {
+		position: absolute;
+		left: 10px;
+		bottom: 20px;
+	}
+
+	#successfulWords div {
+		position: absolute;
+		left: 40px;
+		bottom: 50px;
+		color: #000000;
+		height: 20px;
+	}
+
+	#unsuccessfulWords div {
+		position: absolute;
+		left: 40px;
+		bottom: 20px;
+		height: 20px;
+	}
+	
+}

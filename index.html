@@ -1,50 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="es">
 	<head>
-		<meta charset="utf-8">
-		<title>DIA CENTER - NY - PUBLICO</title>
+		<title>JR Plaza</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="initial-scale=1" />
 
-		<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic'>
-		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
-		<link rel="stylesheet" type="text/css" href="stylesheets/public.css">
+		<!-- STYLESHEETS -->
+		<link rel="stylesheet" type="text/css" href="stylesheets/reset.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic">
 
+		<!-- JAVASCRIPT -->
+		<!-- jQuery plugins -->
 		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
-		<script type="text/javascript" src="js/public.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.timer.js"></script>
+		<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+
+		<script type="text/javascript" src="js/jrplaza.js" ></script>
 	</head>
-
 	<body>
-		<div id="search_word_container">
-			<div class="dia_form" style="width: 50%;">
-				<span style="float: left;">SEARCH BY WORD</span>
-				<input id="search_str_word" type="text" onkeypress="typing_input(this, event);" onkeyup="searching_word(this, event);" >
-			</div>
-		</div>
+		<div id="mainContainer">
+			
+			<!-- autofocus -->
+			<div id="searchWordImagen" >
+				<input id="search_str_word" type="text" placeholder="enter a new word" onkeypress="typing_input(this, event);"  onkeyup="searching_word(this, event);" >
 
-		<div style="width: 25%; float: left;">
+				<div id="searchedWord" class="respuesta resWord" ><span></span></div>
+				<div id="searchedWordCounter" class="respuesta resWord" >0/0</div>
+				<div id="searchedWordFlechas" class="respuesta resWord" ><div class="izq flechas">‹</div><div class="der flechas">›</div></div>
+				
+				<div id="searchedImage" class="respuesta resImage" ></div>
+				<div id="searchedImageCounter" class="respuesta resImage" >0/0</div>
+				<div id="searchedImageFlechas" class="respuesta resImage" ><div class="izq flechas">‹</div><div class="der flechas">›</div></div>
+
+			</div>
 			<div id="words">
+				<div id="successfulWords" class="words" ><img src="images/iconoSuccessfulWords.png" width="24" /><div></div></div>
+				<div id="unsuccessfulWords" class="words" ><img src="images/iconoUnsuccessfulWords.png" width="24"/><div></div></div>
 			</div>
-
-			<div id="word_count" style="float: left;">
-				0 / 0
-			</div>
-
-			<div style="float: right;">
-				<span id="prev_word"> < </span> <span id="next_word"> > </span>
-			</div>
-		</div>
-
-		<div style="width: 26%; float: left; margin-left: 5%;">
-			<div id="photo_show" style="width: 100%;">
-			</div>
-
-			<div id="photo_count" style="float: left;">
-				0 / 0
-			</div>
-
-			<div style="float: right;">
-				<span id="prev_photo"> < </span> <span id="next_photo"> > </span>
-			</div>
-		</div>
-
+		</div>	
 	</body>
 </html>
