@@ -268,7 +268,8 @@ function search_photos_word(search_string) {
 			type: "POST",
 			url: "php/search_photos_word.php",
 			data: {
-				"word": search_string
+				"word"     : search_string,
+				"register" : "false"
 			},
 			dataType: "json",
 			success: function(data) {
@@ -276,7 +277,7 @@ function search_photos_word(search_string) {
 				$("#admin_options").empty();
 				$("#num_selec").html($(".photo_selec").length + " SELECTED");
 
-				if(data.length == 0) {
+				if(data.photos.length == 0) {
 					// Si no hubo resultados lo informamamos
 					var div_empty = document.createElement("div");
 					$(div_empty).attr("id", "empty_info");
@@ -284,19 +285,21 @@ function search_photos_word(search_string) {
 
 					$("#admin_options").append(div_empty);
 				} else {
+					var photos_result = data.photos;
+
 					var ids = new Object(); // Auxiliar para repetidos
-					for (var i = 0; i < data.length; i++) {
+					for (var i = 0; i < photos_result.length; i++) {
 						// Evitamos poner algo que ya pusimos
-						if(ids[data[i].id] == undefined) {
-							var div_photo = generate_div_photo(data[i].id, data[i].count);
+						if(ids[photos_result[i].id] == undefined) {
+							var div_photo = generate_div_photo(photos_result[i].id, photos_result[i].count);
 
 							// Se le agrega la foto
 							var img = new Image();
-							img.src = data[i].url;
+							img.src = photos_result[i].url;
 							$(div_photo).append(img);
 
 							$("#admin_options").append(div_photo); // Se agrega a las opciones
-							ids[data[i].id] = true; // Marcamos que ya la agregamos
+							ids[photos_result[i].id] = true; // Marcamos que ya la agregamos
 						}
 					}
 
