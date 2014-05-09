@@ -87,7 +87,6 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
 	font-size: 16px;
 	color: #000000;
 }
-/* imagen buscada */
 
 #searchedImage {
 	box-sizing: border-box;
@@ -97,7 +96,6 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
 	top:40px;
 	width: 717px;
 	height: 478px;
-	/*background-color: #e9eadf;*/
 }
 
 #searchedImageCounter {
@@ -122,11 +120,11 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
 	color: #A8A8A8;
 	cursor: pointer;
 }
+
 .der {
 	margin-left: 60px;
 }
 
-/*  listas de la particioacion colectiva */
 .words {
 	font-size: 16px;
 }
@@ -134,16 +132,12 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
 #words {
 	position: absolute;
 	bottom: 80px;
-	/*top: auto;*/
-	/*background-color: #ff0000;*/
 	width: 1200px;
 }
 
 .words div {
 	margin-left: 30px;
 	width: 1140px;
-	/*display: inline-block;*/
-	/*float: left;*/
 }
 
 #successfulWords img {
@@ -172,8 +166,6 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
 	width: calc(100% - 40px);
 	overflow: hidden;
 	height: 40px;
-
-	/*background-color: #ffaaaa;*/
 }
 
 #unsuccessfulWords div {
@@ -185,7 +177,6 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
 	width: calc(100% - 40px);
 	overflow: hidden;
 	height: 40px;
-	/*background-color: #ffaaaa;*/
 }
 
 .words span {
@@ -193,41 +184,20 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus {
 	display: inline-block;
 }
 
-/*@media (max-height: 850px){
-	#mainContainer {
-		height: 850px;
-	}
-}*/
-
 /* --------------------------------------------
    Visualización iPad en modo Landscape
 -------------------------------------------- */
 
-
-
-
 /* --------------------------------------------
    Visualización iPad en modo portrait
 -------------------------------------------- */
-/*
-@media (max-width: 768px) {
-	#mainContainer {
-		width: 728px;
-		margin-left: -364px;
-		height: 100%;
-	}
-
-	
-}*/
 
 /* --------------------------------------------
    Visualización móviles 600px
 -------------------------------------------- */
-/* 950*/ 
-/*  */
 
-/*media=”handheld, only screen and (max-device-width: 480px)	*/
 @media screen and (max-width: 1024px) {
+
 	#mainContainer {
 		box-sizing: border-box;
 		display: inline-block;
