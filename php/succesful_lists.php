@@ -13,14 +13,14 @@
 	if(!is_null($dbconn)) {
 		// Consultamos las dos listas de palabras
 		// Exitosos
-		$sql = "SELECT * FROM successful_words ORDER BY timestamp DESC LIMIT 0, 20;";
+		$sql = "SELECT * FROM successful_words ORDER BY timestamp DESC LIMIT 0, 40;";
 		$result = $dbconn->query($sql);
 		while ($row = $result->fetch_array()) {
 			array_push($successful_words, $row["word"]);
 		}
 
 		// No exitosos
-		$sql = "SELECT * FROM unsuccessful_words ORDER BY timestamp DESC LIMIT 0, 20;";
+		$sql = "SELECT * FROM unsuccessful_words ORDER BY timestamp DESC LIMIT 0, 40;";
 		$result = $dbconn->query($sql);
 		while ($row = $result->fetch_array()) {
 			array_push($unsuccessful_words, $row["word"]);
