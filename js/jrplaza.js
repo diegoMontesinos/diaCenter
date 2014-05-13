@@ -59,16 +59,15 @@ function search_photos_word(word, update_words, register_word, reset_photo) {
 						img.onload = function() {
 							var counter = 0;
 							$(".respuesta").fadeOut(200, function() {
-								// Solo una vez
-								if(counter == 0) {
-									// Ajustamos la interfaz a la imagen
-									adjust_gui(img);
 
-									// La agregamos al div que le toca
-									$("#searchedImage").empty();
-									$("#searchedImage").html(img);
-								}
-								counter++;
+								// La agregamos al div que le toca
+								$("#searchedImage").empty();
+								$("#searchedImage").html(img);
+								
+								// Ajustamos la interfaz a la imagen
+								adjust_gui(img);
+
+								$(".respuesta").fadeIn(500, function() {});
 							});
 						};
 						img.src = photos[0].url;
