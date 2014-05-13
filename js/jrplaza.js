@@ -57,12 +57,19 @@ function search_photos_word(word, update_words, register_word, reset_photo) {
 						// Creamos el elemento de la imagen
 						var img = new Image();
 						img.onload = function() {
-							// Ajustamos la interfaz a la imagen
-							adjust_gui(img);
+							var counter = 0;
+							$(".respuesta").fadeOut(200, function() {
+								// Solo una vez
+								if(counter == 0) {
+									// Ajustamos la interfaz a la imagen
+									adjust_gui(img);
 
-							// La agregamos al div que le toca
-							$("#searchedImage").empty();
-							$("#searchedImage").html(img);
+									// La agregamos al div que le toca
+									$("#searchedImage").empty();
+									$("#searchedImage").html(img);
+								}
+								counter++;
+							});
 						};
 						img.src = photos[0].url;
 					}
@@ -214,15 +221,8 @@ function blur_handler(input_elem, event) {
 	}
 	$(input_elem).val("");
 
-	var counter = 0;
-	$(".respuesta").fadeOut(200, function() {
-		// Solo una vez
-		if(counter == 0) {
-			// mandamos a buscar las fotos
-			search_photos_word(new_word, true, true, true);
-		}
-		counter++;
-	});
+	// mandamos a buscar las fotos
+	search_photos_word(new_word, true, true, true);
 }
 
 /*
@@ -332,13 +332,8 @@ function show_succesful_lists(succesful_list, unsuccesful_list) {
 	$("#successfulWords span").bind("click", function() {
 		var counter = 0;
 		var wordCommunity = $(this).text();
-		$(".respuesta").fadeOut(200, function() {
-			// Solo se manda a buscar una vez
-			if (counter == 0) {
-				search_photos_word(wordCommunity, true, false, true);
-			}
-			counter++;
-		});
+
+		search_photos_word(wordCommunity, true, false, true);
 	});
 
 	// LISTA DE PALABRAS NO EXITOSAS
