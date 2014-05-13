@@ -22,7 +22,7 @@ function add_word_photo(id_photo, word, div_selection, input_elem) {
 			// Creamos el nuevo elemento de la lista
 			// y le asignamos sus funciones
 			var new_li = document.createElement("li");
-			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span style='margin-left: 4%;' onclick='delete_word_photo(this, event);'>[x]</span>");
+			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span style='margin-left: 10%;' onclick='delete_word_photo(this, event);'>[x]</span>");
 			$(new_li).hover(function() {
 				$(this).find("span").show();
 			}, function() {
@@ -172,7 +172,7 @@ function assign_to_all(word) {
 				if(!already_assigned(select_photos[i], word, "word")) {
 					// Creamos el nuevo elemento de la lista
 					var new_li = document.createElement("li");
-					$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span style='margin-left: 4%;' onclick='delete_word_photo(this, event);'>[x]</span>");
+					$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span style='margin-left: 10%;' onclick='delete_word_photo(this, event);'>[x]</span>");
 					$(new_li).hover(function() {
 						$(this).find("span").show();
 					}, function() {
@@ -395,7 +395,7 @@ function add_category(new_category, input_elem) {
 		success: function(data) {
 			// Creamos el nuevo elemento de la lista
 			var new_li = document.createElement("li");
-			$(new_li).append(data.category.replace('"', '').replace('"', '') + "<span style='margin-left: 4%;' onclick='delete_category(this, event);'>[x]</span>");
+			$(new_li).append(data.category.replace('"', '').replace('"', '') + "<span style='margin-left: 10%;' onclick='delete_category(this, event);'>[x]</span>");
 			$(new_li).hover(function() {
 				$(this).find("span").show();
 			}, function() {
@@ -481,14 +481,17 @@ function add_category_word(id_category, word) {
 		success: function(data) {
 			// Creamos el nuevo elemento de la lista
 			var new_li = document.createElement("li");
-			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span onclick='delete_category_word(this, event);'>[x]</span>");
+			$(new_li).append(data.word.replace('"', '').replace('"', '') + " <span style='margin-left: 10%;' onclick='delete_category_word(this, event);'>[x]</span>");
+			$(new_li).attr("id-word", data.id);
+			$(new_li).attr("word", data.word);
 			$(new_li).hover(function() {
 				$(this).find("span").show();
 			}, function() {
 				$(this).find("span").hide();
 			});
-			$(new_li).attr("id-word", data.id);
-			$(new_li).attr("word", data.word);
+			$(new_li).click(function(event) {
+				select_category_word(this, event);
+			});
 
 			// Lo agregmos a la lista y reiniciamos el scroll
 			var ul_words = $("#categories_words").find(".jspPane")[0];
@@ -520,14 +523,17 @@ function get_words_category(id_category) {
 			for (var i = 0; i < data.length; i++) {
 				// Creamos el nuevo elemento de la lista
 				var new_li = document.createElement("li");
-				$(new_li).append(data[i].word.replace('"', '').replace('"', '') + " <span onclick='delete_category_word(this, event);'>[x]</span>");
+				$(new_li).append(data[i].word.replace('"', '').replace('"', '') + " <span style='margin-left: 10%;' onclick='delete_category_word(this, event);'>[x]</span>");
+				$(new_li).attr("id-word", data[i].id);
+				$(new_li).attr("word", data[i].word);
 				$(new_li).hover(function() {
 					$(this).find("span").show();
 				}, function() {
 					$(this).find("span").hide();
 				});
-				$(new_li).attr("id-word", data[i].id);
-				$(new_li).attr("word", data[i].word);
+				$(new_li).click(function(event) {
+					select_category_word(this, event);
+				});
 
 				// Lo agregmos a la lista y reiniciamos el scroll
 				var ul_words = $("#categories_words").find(".jspPane")[0];
@@ -577,19 +583,20 @@ function delete_category_word(span_elem, event) {
  * assing_category_all:
  * Asigna las palabras de una categoría a todas las fotos seleccionadas.
  */
-function assing_category_all(id_category) {
-	$.ajax({
-		type: "POST",
-		url: "php/get_words_category.php",
-		data: { "id_category": id_category},
-		dataType: "json",
-		success: function(data) {
-			// Asignamos las palabras
-			for (var i = 0; i < data.length; i++) {
-				assign_to_all(data[i].word.replace('"', '').replace('"', ''));
-			}
+function assing_category_all() {
+	var selected_category = $(".category_selec");
+	if(selected_category.length == 1) {
+
+		// Obtenemos las palabras de la categoria seleccionadas
+		var selected_category_words = $(".category_word_selec");
+
+		// Para cada palabra seleccionada
+		for (var i = 0; i < selected_category_words.length; i++) {
+			// La asociamos a todos
+			assign_to_all($(selected_category_words[i]).attr("word").replace('"', '').replace('"', ''));
+			$(selected_category_words[i]).removeClass("category_word_selec");
 		}
-	});
+	}
 }
 
 /*
@@ -604,33 +611,23 @@ function associate_category_one(li_elem) {
 	var selected_category = $(".category_selec");
 	if(selected_category.length == 1) {
 
-		// Obtenemos la categoria seleccionada
-		var id_category = selected_category.attr("id-category");
-
-		// Pedimos sus palabra
-		$.ajax({
-			type: "POST",
-			url: "php/get_words_category.php",
-			data: { "id_category": id_category},
-			dataType: "json",
-			success: function(data) {
-				// Asignamos las palabras
-				for (var i = 0; i < data.length; i++) {
-					// Obtenemos el div seleccion
-					var div_selection = undefined;
-					for (var j = 0; j < div_selections.length; j++) {
-						if($(div_selections[j]).attr("id-photo") == id_photo) {
-							div_selection = div_selections[j];
-						}
-					}
-
-					// La asociamos
-					add_word_photo(id_photo, data[i].word, $(div_selection), undefined);
-				}
-
-				$(".category_selec").removeClass("category_selec");
+		// Obtenemos el div seleccion
+		var div_selection = undefined;
+		for (var j = 0; j < div_selections.length; j++) {
+			if($(div_selections[j]).attr("id-photo") == id_photo) {
+				div_selection = div_selections[j];
 			}
-		});
+		}
+
+		// Obtenemos las palabras de la categoria seleccionadas
+		var selected_category_words = $(".category_word_selec");
+
+		// Para cada palabra seleccionada
+		for (var i = 0; i < selected_category_words.length; i++) {
+			// La asociamos
+			add_word_photo(id_photo, $(selected_category_words[i]).attr("word"), $(div_selection), undefined);
+			$(selected_category_words[i]).removeClass("category_word_selec");
+		}
 	}
 }
 
@@ -701,6 +698,23 @@ function select_category(li_elem) {
 	// Mostramos las palabras
 	$("#add_category_word").show();
 	$("#categories_words_container").show();
+}
+
+/*
+ * select_category:
+ * Marca una categoría como seleccionada
+ * y despliega las palabras asignadas a ella.
+ */
+function select_category_word(li_elem, event) {
+	event.preventDefault();
+	event.stopPropagation();
+
+	// Estilo
+	if($(li_elem).hasClass("category_word_selec")) {
+		$(li_elem).removeClass("category_word_selec");
+	} else {
+		$(li_elem).addClass("category_word_selec");
+	}
 }
 
 /*
@@ -1021,15 +1035,6 @@ $(function() {
 
 				$(select_dict_words[i]).removeClass("word_dict_selec");				
 			}
-		}
-	});
-
-	// Asocia desde categorias
-	$("#categories_all").click(function (event) {
-		var selected_category = $(".category_selec");
-		if(selected_category.length == 1) {
-			var id_category = selected_category.attr("id-category");
-			assing_category_all(id_category);
 		}
 	});
 

@@ -205,7 +205,7 @@
 								</div>
 							</div>
 
-							<div id="categories_all">&lt; ASSIGN TO ALL</div>
+							<div id="categories_all" onclick="assing_category_all();">&lt; ASSIGN TO ALL</div>
 						</div>
 
 						<input type="text" id="add_category" onkeypress="typing_input(this, event);" onkeyup="adding_category(this, event);" style="margin-top: 8px; margin-left: 3%;">
@@ -214,7 +214,7 @@
 							<ul id="categories">
 								<?php
 									foreach ($categories as $category) {
-										echo "<li onclick='select_category(this);' id-category='".$category["id"]."' category='".$category["title"]."'>".$category["title"]."<span style='margin-left: 5%;' onclick='delete_category(this, event);'> [x]</span></li>";
+										echo "<li onclick='select_category(this);' id-category='".$category["id"]."' category='".$category["title"]."'>".$category["title"]."<span style='margin-left: 10%;' onclick='delete_category(this, event);'> [x]</span></li>";
 									}
 								?>
 							</ul>
@@ -251,7 +251,7 @@
 								<ul class='words_select'>";
 
 						foreach ($data["words"] as &$word) {
-							$html_str = $html_str."<li id-word='".$word["id"]."' word='".$word["word"]."'>".$word["word"]." <span style='margin-left: 4%;' onclick='delete_word_photo(this, event);'>[x]</span></li>";
+							$html_str = $html_str."<li id-word='".$word["id"]."' word='".$word["word"]."'>".$word["word"]." <span style='margin-left: 10%;' onclick='delete_word_photo(this, event);'>[x]</span></li>";
 						}
 
 						$html_str =	$html_str."</ul></div></div>";
