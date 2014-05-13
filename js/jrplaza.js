@@ -139,8 +139,6 @@ function search_words_photo(id_photo, first_word, animar, reset_word) {
 				if (animar) {
 					$(".respuesta").fadeIn(500, function() {});
 				}
-
-				console.log(words);
 			}
 		}
 	});
@@ -363,12 +361,12 @@ function show_succesful_lists(succesful_list, unsuccesful_list) {
  *   el bug de muchos clicks.
  */
 function previous_word(fade_event, selector_str) {
-	// Recorremos el arreglo
-	var last = words.pop();
-	words.unshift(last);
-	curr_word = words[0].word;
-
 	$("#searchedWord span").fadeOut(300, function() {
+		// Recorremos el arreglo
+		var last = words.pop();
+		words.unshift(last);
+		curr_word = words[0].word;
+
 		$("#searchedWord span").html(curr_word);
 		$("#searchedWord span").fadeIn(300, function() {
 			// Actualizamos el contador
@@ -396,12 +394,12 @@ function previous_word(fade_event, selector_str) {
  *   el bug de muchos clicks.
  */
 function next_word(fade_event, selector_str) {
-	// Recorremos el arreglo
-	var first = words.shift();
-	words.push(first);
-	curr_word = words[0].word;
-
 	$("#searchedWord span").fadeOut(300, function() {
+		// Recorremos el arreglo
+		var first = words.shift();
+		words.push(first);
+		curr_word = words[0].word;
+
 		$("#searchedWord span").html(curr_word);
 		$("#searchedWord span").fadeIn(300, function() {
 			// Actualizamos el contador
@@ -534,7 +532,10 @@ function next_photo(fade_event, selector_str) {
  *  navegar de las fotos.
  */
 function activate_flecha_photo(selector_str) {
-	$(selector_str).bind("click", function() {
+	$(selector_str).bind("click", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+
 		if(photos.length > 0) {
 			$(selector_str).unbind("click");
 
@@ -554,7 +555,10 @@ function activate_flecha_photo(selector_str) {
  *  navegar de las palabras.
  */
 function activate_flecha_word(selector_str) {
-	$(selector_str).bind("click", function() {
+	$(selector_str).bind("click", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+
 		if(words.length > 0) {
 			$(selector_str).unbind("click");
 
