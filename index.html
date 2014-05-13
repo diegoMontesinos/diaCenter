@@ -18,14 +18,19 @@
 		<script type="text/javascript" src="js/jquery.timer.js"></script>
 		<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 
+		<script type="text/javascript" >var ie = undefined;</script>
+		<!--[if IE ]>
+			<script type="text/javascript" >ie = "yes";</script>
+		<![endif]-->
 		<script type="text/javascript" src="js/jrplaza.js" ></script>
+
 	</head>
-	<body>
+	<body id="bod">
 		<div id="mainContainer">
 			
 			<!-- autofocus -->
 			<div id="searchWordImagen" >
-				<input id="search_str_word" type="text" placeholder="enter a new word" onkeypress="typing_input(this, event);"  onkeyup="searching_word(this, event);" >
+				<input id="search_str_word" type="text" placeholder="enter a word" onkeypress="typing_input(this, event);"  onkeyup="searching_word(this, event);" >
 
 				<div id="searchedWord" class="respuesta resWord" ><span></span></div>
 				<div id="searchedWordCounter" class="respuesta resWord" >0/0</div>
@@ -34,12 +39,13 @@
 				<div id="searchedImage" class="respuesta resImage" ></div>
 				<div id="searchedImageCounter" class="respuesta resImage" >0/0</div>
 				<div id="searchedImageFlechas" class="respuesta resImage" ><div class="izq flechas">‹</div><div class="der flechas">›</div></div>
-
 			</div>
 			<div id="words">
 				<div id="successfulWords" class="words" ><img src="images/iconoSuccessfulWords.png" width="24" /><div></div></div>
 				<div id="unsuccessfulWords" class="words" ><img src="images/iconoUnsuccessfulWords.png" width="24"/><div></div></div>
 			</div>
-		</div>	
+		</div>
+
+		<button id="fullscreenAux" style="display: none;">FULLSCREEN</button>
 	</body>
 </html>

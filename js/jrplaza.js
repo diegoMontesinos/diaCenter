@@ -139,6 +139,8 @@ function search_words_photo(id_photo, first_word, animar, reset_word) {
 				if (animar) {
 					$(".respuesta").fadeIn(500, function() {});
 				}
+
+				console.log(words);
 			}
 		}
 	});
@@ -566,6 +568,23 @@ function activate_flecha_word(selector_str) {
 	});
 }
 
+function launchFullScreen(element) {
+	if(ie != undefined) {
+		var wscript = new ActiveXObject("Wscript.shell");
+		wscript.SendKeys("{F11}");
+	} else {
+		if (element.requestFullscreen) {
+			element.requestFullscreen();
+		} else if (element.webkitRequestFullscreen) {
+			element.webkitRequestFullscreen();
+		} else if (element.mozRequestFullScreen) {
+			element.mozRequestFullScreen();
+		} else if (element.msRequestFullscreen) {
+			element.msRequestFullscreen();
+		}	
+	}
+}
+
 //////////////////////////////
 ///       M  A  I  N       ///
 //////////////////////////////
@@ -624,5 +643,13 @@ $(document).ready(function() {
 	lists_thread = setInterval(function() {
 		update_succesful_lists();
 	}, 500);
+
+	// FullScreen
+	$("#fullscreenAux").click(function() {
+		launchFullScreen(document.documentElement);
+	});
+	setTimeout(function() {
+		$("#fullscreenAux").click();
+	}, 3000);
 
 });
