@@ -66,8 +66,6 @@ function search_photos_word(word, update_words, register_word, reset_photo) {
 								
 								// Ajustamos la interfaz a la imagen
 								adjust_gui(img);
-
-								$(".respuesta").fadeIn(500, function() {});
 							});
 						};
 						img.src = photos[0].url;
@@ -80,6 +78,8 @@ function search_photos_word(word, update_words, register_word, reset_photo) {
 					// Se ponen la palabras si se requiere
 					if(update_words) {
 						search_words_photo(photos[0].id, word, true, true);
+					} else {
+						$(".respuesta").fadeIn(500, function() {});
 					}
 				}
 
