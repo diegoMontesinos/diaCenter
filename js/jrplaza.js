@@ -57,19 +57,13 @@ function search_photos_word(word, register_word, reset_and_update) {
 						// Creamos el elemento de la imagen
 						var img = new Image();
 						img.onload = function() {
-							var counter = 0;
-							$(".respuesta").fadeOut(200, function() {
-								if(counter == 0) {
-									// La agregamos al div que le toca
-									$("#searchedImage").empty();
-									$("#searchedImage").html(img);
-									
-									// Ajustamos la interfaz a la imagen
-									adjust_gui(img);
-								}
-								counter++;
-							});
+							// La agregamos al div que le toca
+							$("#searchedImage").empty();
+							$("#searchedImage").html(img);
 							
+							// Ajustamos la interfaz a la imagen
+							adjust_gui(img);
+
 							search_words_photo(photos[0].id, word, true, true);
 						};
 						img.src = photos[0].url;
@@ -218,7 +212,13 @@ function blur_handler(input_elem, event) {
 	$(input_elem).val("");
 
 	// mandamos a buscar las fotos
-	search_photos_word(new_word, true, true);
+	var counter = 0;
+	$(".respuesta").fadeOut(200, function() {
+		if(counter == 0) {
+			search_photos_word(new_word, true, true);
+		}
+		counter++;
+	});
 }
 
 /*
@@ -329,7 +329,13 @@ function show_succesful_lists(succesful_list, unsuccesful_list) {
 		var counter = 0;
 		var wordCommunity = $(this).text();
 
-		search_photos_word(wordCommunity, false, true);
+		var counter = 0;
+		$(".respuesta").fadeOut(200, function() {
+			if(counter == 0) {
+				search_photos_word(wordCommunity, false, true);
+			}
+			counter++;
+		});
 	});
 
 	// LISTA DE PALABRAS NO EXITOSAS
