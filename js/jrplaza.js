@@ -25,7 +25,7 @@ var screenFlag = "desktop" // desktop || mobile (less than 10024 and multitouch)
  *  las palabras, si es necesario registrar la
  *  busqueda y si se necesita resetear la foto.
  */
-function search_photos_word(word, update_words, register_word, reset_photo) {
+function search_photos_word(word, register_word, reset_and_update) {
 	if(word != "") {
 		$.ajax({
 			type: "POST",
@@ -43,7 +43,7 @@ function search_photos_word(word, update_words, register_word, reset_photo) {
 					photos = data.photos.slice(0);
 
 					// Se pone la primera foto si se requiere
-					if(reset_photo) {
+					if(reset_and_update) {
 
 						// Hacemos un shuffle de las fotos
 						for (var i = 0; i < photos.length; i++) {
@@ -69,6 +69,8 @@ function search_photos_word(word, update_words, register_word, reset_photo) {
 								}
 								counter++;
 							});
+							
+							search_words_photo(photos[0].id, word, true, true);
 						};
 						img.src = photos[0].url;
 					}
@@ -76,13 +78,6 @@ function search_photos_word(word, update_words, register_word, reset_photo) {
 					// Ponemos el contador
 					photos_i = 1;
 					$("#searchedImageCounter").html(photos_i + " / " + photos.length);
-
-					// Se ponen la palabras si se requiere
-					if(update_words) {
-						search_words_photo(photos[0].id, word, true, true);
-					} else {
-						$(".respuesta").fadeIn(500, function() {});
-					}
 				}
 
 				// Pone las listas
@@ -223,7 +218,7 @@ function blur_handler(input_elem, event) {
 	$(input_elem).val("");
 
 	// mandamos a buscar las fotos
-	search_photos_word(new_word, true, true, true);
+	search_photos_word(new_word, true, true);
 }
 
 /*
@@ -334,7 +329,7 @@ function show_succesful_lists(succesful_list, unsuccesful_list) {
 		var counter = 0;
 		var wordCommunity = $(this).text();
 
-		search_photos_word(wordCommunity, true, false, true);
+		search_photos_word(wordCommunity, false, true);
 	});
 
 	// LISTA DE PALABRAS NO EXITOSAS
@@ -373,7 +368,7 @@ function previous_word(fade_event, selector_str) {
 			$("#searchedWordCounter").html(words_i + " / " + words.length);
 
 			// Se mandana buscar las fotos
-			search_photos_word(curr_word, false, false, false);
+			search_photos_word(curr_word, false, false);
 
 			if(fade_event != undefined) {
 				fade_event(selector_str);
@@ -406,7 +401,7 @@ function next_word(fade_event, selector_str) {
 			$("#searchedWordCounter").html(words_i + " / " + words.length);
 
 			// Se mandana buscar las fotos
-			search_photos_word(curr_word, false, false, false);
+			search_photos_word(curr_word, false, false);
 
 			if(fade_event != undefined) {
 				fade_event(selector_str);
