@@ -60,7 +60,15 @@ function search_photos_word(word, register_word, reset_and_update) {
 							// La agregamos al div que le toca
 							$("#searchedImage").empty();
 							$("#searchedImage").html(img);
-							
+
+							// Lupa
+							$(img).elevateZoom({
+								zoomType: "lens",
+								lensShape: "square",
+								lensSize: 220,
+								borderSize: 0
+							});
+
 							// Ajustamos la interfaz a la imagen
 							adjust_gui(img);
 
@@ -435,12 +443,20 @@ function previous_photo(fade_event, selector_str) {
 			var img = new Image();
 			img.onload = function() {
 
-				// Ajustamos la interfaz
-				adjust_gui(img);
-
 				// La agregamos al div que le toca
 				$("#searchedImage").empty();
 				$("#searchedImage").html(img);
+
+				// Lupa
+				$(img).elevateZoom({
+					zoomType: "lens",
+					lensShape: "square",
+					lensSize: 220,
+					borderSize: 0
+				});
+
+				// Ajustamos la interfaz
+				adjust_gui(img);
 
 				var counter2 = 0;
 				$(".resImage").fadeIn(500, function() {
@@ -488,12 +504,20 @@ function next_photo(fade_event, selector_str) {
 			var img = new Image();
 			img.onload = function() {
 
-				// Ajustamos la interfaz
-				adjust_gui(img);
-
 				// La agregamos al div que le toca
 				$("#searchedImage").empty();
 				$("#searchedImage").html(img);
+
+				// Lupa
+				$(img).elevateZoom({
+					zoomType: "lens",
+					lensShape: "square",
+					lensSize: 220,
+					borderSize: 0
+				});
+
+				// Ajustamos la interfaz
+				adjust_gui(img);
 
 				var counter2 = 0;
 				$(".resImage").fadeIn(500, function() {
