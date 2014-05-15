@@ -81,7 +81,7 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus, .ui-loade
 
 #searchedWordFlechas {
 	position: absolute;
-	left: 65px;
+	left: 78px;
 	top: 518px;
 	font-size: 16px;
 	color: #000000;
@@ -109,7 +109,7 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus, .ui-loade
 
 #searchedImageFlechas {
 	position: absolute;
-	left: 544px;
+	left: 545px;
 	top: 518px;
 	font-size: 16px;
 	color: #000000;
@@ -122,10 +122,12 @@ input:focus, input:hover, .ui-mobile:focus, .ui-mobile-viewport:focus, .ui-loade
 	font-size: 30px;
 	color: #A8A8A8;
 	cursor: pointer;
+
+	font-family: Zapfding, serif;
 }
 
 .der {
-	margin-left: 6px;
+	margin-left: 22px;
 }
 
 .words {
