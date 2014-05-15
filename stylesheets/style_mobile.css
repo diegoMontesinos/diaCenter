@@ -1,0 +1,126 @@
+
+#mainContainer {
+	box-sizing: border-box;
+	display: inline-block;
+	clear: both;
+	float: none;
+	left: 0px;
+	top: 0px;
+	margin:0px;
+	width: 100%;
+}
+
+input {
+	display: block;
+	box-sizing: border-box;
+	top: 10px;
+	left: 10px;
+	width: -webkit-calc(100% - 20px);
+	width: -moz-calc(100% - 20px);
+	width: calc(100% - 20px); 
+
+	font-size: 2em;
+	margin: 0px;
+	margin-bottom: 0px;
+	height: 60px;
+}
+
+#searchedWord {
+	box-sizing: border-box;
+	display: block;
+	clear: both;
+	float: none;
+	width: -webkit-calc(100% - 20px);
+	width: -moz-calc(100% - 20px);
+	width: calc(100% - 20px); 
+	left: 10px;
+	top: 75px;
+
+	margin: 0px;
+	margin-top: 0px;
+	font-size: 2em;
+	height: 60px;
+	line-height: 47px;	
+}
+
+#searchedImage {
+	display: inline-block;
+	width: -webkit-calc(100% - 20px);
+	width: -moz-calc(100% - 20px);
+	width: calc(100% - 20px); 
+	left: 10px;
+	top: 175px;
+	background-color: #fff;
+	height: auto;
+}
+
+#searchedImage img {
+	width: 100%;
+}
+
+#searchedWordCounter {
+	position: absolute;
+	left: 20px;
+	top: 142px;
+}
+
+#searchedWordFlechas {
+	position: absolute;
+	left: auto;
+	right: 20px;
+	top: 138px;
+}
+	
+#searchedImageCounter {
+	position: absolute;
+	left: 10px;
+	top: 802px;
+}
+
+#searchedImageFlechas {
+	position: absolute;
+	left: 0px;
+	top: 795px;
+}
+
+#words {
+	position: fixed;
+	background-color: #fff; 
+	width: 100%;
+	height: 80px;
+	bottom: 0px;
+	left: 0px;
+}
+
+.words div {
+	margin-left: 0px;
+	width: 100%;
+	font-size: 1.2em;
+}
+
+#successfulWords img {
+	position: absolute;
+	left: 10px;
+	bottom: 50px;
+}
+
+#unsuccessfulWords img {
+	position: absolute;
+	left: 10px;
+	bottom: 20px;
+}
+
+#successfulWords div {
+	position: absolute;
+	left: 40px;
+	bottom: 50px;
+	color: #000000;
+	height: 20px;
+}
+
+#unsuccessfulWords div {
+	position: absolute;
+	left: 40px;
+	bottom: 20px;
+	height: 20px;
+}

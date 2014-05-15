@@ -1,18 +1,66 @@
-<!DOCTYPE html>
-<html lang="es">
+<!-- LOGIN HTML -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
 	<head>
-		<title>JR Plaza</title>
+		<title>DIA CENTER - NY</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	</head>
-	<body>
-		REGISTRATION REQUEST
 
-		<form action="php/registration_request.php" method="post">
-			First name: <input type="text" name="firstname"><br>
-			Last name: <input type="text" name="lastname"><br>
-			E-mail: <input type="email" name="mail"><br>
-			<input type="submit" value="REQUEST">
-		</form>
+		<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic'>
+		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+
+		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="js/jquery.form.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() { 
+				$('#registration_form').ajaxForm(function() {
+					alert("Thank you for your comment!");
+				}); 
+			}); 
+		</script>
+	</head>
+
+	<body>
+		
+		<div id="dia_container" align="center">
+			
+			<div style="margin-top: 120px; font-family: 'Playfair Display', serif; font-size: 1em; margin-left: 4%;">
+				<strong>PARTICIPATION REQUEST</strong>
+			</div>
+
+			<div id="registration_form_conatiner" align="left">
+
+				<form id="registration_form" action="php/registration_request.php" method="post" class="dia_form">
+
+					<div style="margin-top: 15px; margin-left: 10%;">
+						<label>FIRST NAME: </label>
+						<input type="text" name="firstname" style="width: 58%; margin-left: 3%;">
+					</div>
+
+					<div style="margin-top: 8px; margin-left: 10.5%;">
+						<label>LAST NAME: </label>
+						<input type="text" name="lastname" style="width: 58.2%; margin-left: 3%;">
+					</div>
+
+					<div style="margin-top: 8px; margin-left: 17.7%;">
+						<label>EMAIL: </label>
+						<input type="email" name="mail" style="width: 63.3%; margin-left: 3%;">
+					</div>
+
+					<div style="margin-top: 8px; margin-left: 4.2%;">
+						<label style="float: left;">REASONS (BRIEF): </label>
+						<textarea name="reasons" style="width: 65%; height: 110px; margin-left: 3%; resize: none;" ></textarea>
+					</div>
+
+					<div style="margin-top: 12px; margin-left: 76%; float: left;">
+						<input type="submit" value="REQUEST">
+					</div>
+					
+				</form>
+
+			</div>
+		</div>
+
 	</body>
+
 </html>

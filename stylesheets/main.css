@@ -8,7 +8,16 @@
 	font-size: 0.8em;
 }
 
-.dia_form input[type="password"] {
+.dia_form textarea {
+	width: 67%;
+	border: 1px solid #000;
+	background: #FFF;
+	float: left;
+
+	font-family: 'Playfair Display', serif;
+}
+
+.dia_form input[type="email"] {
 	width: 67%;
 	border: 1px solid #000;
 	background: #FFF;
@@ -16,8 +25,16 @@
 	font-family: 'Playfair Display', serif;
 }
 
-.dia_form input[type="password"]:focus {
+.dia_form input[type="email"]:focus, .dia_form input[type="password"]:focus, .dia_form textarea:focus {
 	outline: none;
+}
+
+.dia_form input[type="password"] {
+	width: 67%;
+	border: 1px solid #000;
+	background: #FFF;
+
+	font-family: 'Playfair Display', serif;
 }
 
 .dia_form input[type="text"] {
@@ -71,4 +88,14 @@
 	margin-top: 17px;
 	color: #FF0000;
 	font-family: 'Playfair Display', serif;
+}
+
+#registration_form_conatiner {
+	width: 30%;
+	height: 270px;
+
+	background: #FFF;
+	margin-top: 10px;
+	font-family: 'Playfair Display';
+	font-size: 0.89em;
 }

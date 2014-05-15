@@ -9,6 +9,7 @@
 		<!-- STYLESHEETS -->
 		<link rel="stylesheet" type="text/css" href="stylesheets/reset.css">
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+		<link rel="stylesheet" media="(max-device-width: 1024px)" type="text/css" href="stylesheets/style_mobile.css">
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic">
 
 		<!-- JAVASCRIPT -->
@@ -28,7 +29,6 @@
 	<body id="bod">
 		<div id="mainContainer">
 			
-			<!-- autofocus -->
 			<div id="searchWordImagen" >
 				<input id="search_str_word" type="text" placeholder="enter a word" onkeypress="typing_input(this, event);"  onkeyup="searching_word(this, event);" >
 
@@ -41,11 +41,14 @@
 				<div id="searchedImageFlechas" class="respuesta resImage" ><div class="izq flechas">‹</div><div class="der flechas">›</div></div>
 			</div>
 			<div id="words">
-				<div id="successfulWords" class="words" ><img src="images/iconoSuccessfulWords.png" width="24" /><div></div></div>
+				<div id="successfulWords" class="words">
+					<img src="images/iconoSuccessfulWords.png" width="24" />
+					<div></div>
+				</div>
+				
 				<div id="unsuccessfulWords" class="words" ><img src="images/iconoUnsuccessfulWords.png" width="24"/><div></div></div>
 			</div>
 		</div>
 
-		<button id="fullscreenAux" style="display: none;">FULLSCREEN</button>
 	</body>
 </html>

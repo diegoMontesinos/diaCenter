@@ -46,17 +46,18 @@
 				$sql = "INSERT INTO users(name, email, user, password, permissions) VALUES('".$name."', '".$_POST["mail"]."', '".$new_username."', '".$new_pass."', 2);";
 				$result = $dbconn->query($sql);
 
-				// Enviamos correo al usuario y al admin
+				// Preparamos el correo
 				$mailer = new PHPMailer;
-				$mailer->SMTPAuth = true;
+				$mailer->SMTPAuth   = true;
 				$mailer->SMTPSecure = 'tls';
-				$mailer->Host = "smtp.gmail.com";
-				$mailer->Mailer = "smtp";
-				$mailer->Port = 587;
-				$mailer->Username = "diegoa.montesinos@gmail.com";
-				$mailer->Password = "BlackBeat20";
+				$mailer->Host       = "smtp.gmail.com";
+				$mailer->Mailer     = "smtp";
+				$mailer->Port       = 587;
+				$mailer->Username   = "diegoa.montesinos@gmail.com";
+				$mailer->Password   = "BlackBeat20";
+				$mailer->IsHTML(true);
 
-				$mailer->From = "diegoa.montesinos@gmail.com";
+				$mailer->From     = "diegoa.montesinos@gmail.com";
 				$mailer->FromName = "Dia Center";
 				$mailer->addAddress($_POST["mail"]);
 
