@@ -7,7 +7,11 @@ var wall;
 var pageSize = 20;
 var photo_count = 0;
 var upload_unfold = false;
+var used_unfold = false;
 Dropzone.autoDiscover = false;
+
+// Para el buscador de las palabras usadas
+var used_words = new Array();
 
 /*
  * load_photos:
@@ -431,6 +435,14 @@ function get_single(search_str) {
 	return "";	
 }
 
+/*
+ * select_used_word:
+ */
+function select_used_word(li_elem) {
+	var word = $(li_elem).attr("word");
+	search_photos_word(word);
+}
+
 ///////////////////////////////////////////
 //           F U N C I O N E S           //
 //          A U X I L I A R E S          //
@@ -496,6 +508,65 @@ $(function() {
 		}
 	});
 
+	// Evento de filtrar palabras usadas
+	$("#filter_used").keypress(function(event) {
+		if(event.keyCode == 32) {
+			event.preventDefault();
+			event.stopPropagation();
+			return;
+		}
+		if(event.keyCode == 13) {
+			var search_string = $(this).val();
+			if(search_string == "") {
+				search_string = "a";
+			}
+
+			// Filtramos las palabras usadas
+			var filtered_used = used_words.filter(function(element) {
+				if(element.word.length < search_string.length) {
+					return false;
+				} else {
+					var index = element.word.indexOf(search_string);
+					if(index != 0) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+			});
+
+			if(filtered_used.length > 0) {
+				$("#used_words").find(".jspPane").empty();
+				$("#used_words").show();
+
+				// Se ponen en la lista
+				for (var i = 0; i < filtered_used.length; i++) {
+					var new_li = document.createElement("li");
+					$(new_li).attr("word", filtered_used[i].word);
+					$(new_li).attr("id-word", filtered_used[i].id);
+
+					$(new_li).html(filtered_used[i].word);
+					$(new_li).addClass("used_word");
+					$(new_li).click(function() {
+						select_used_word(this);
+					});
+
+					// Lo agregamos donde debe de ir
+					$("#used_words").find(".jspPane").append(new_li);
+				}
+
+				// Reiniciamos el scroll.
+				var api = $("#used_words").data('jsp');
+				api.reinitialise();
+			} else {
+				$("#used_words").hide();
+				$("#no_used").show();
+			}
+
+			$(this).val("");
+		}
+	});
+
 	// Boton de buscar id
 	$("#search_id_button").on("click", function(event) {
 		var search_string = $("#search_str_id").val();
@@ -526,6 +597,20 @@ $(function() {
 		}
 	});
 
+	// Ocultar - mostrar palabras mostradas
+	$("#used_content").hide();
+	$("#used_unfold").click(function() {
+		$("#used_content").toggle();
+
+		used_unfold = !used_unfold;
+		if(used_unfold) {
+			$(this).find("img").attr("src", "images/toggle_2.jpeg");
+		} else {
+			$(this).find("img").attr("src", "images/toggle_1.jpeg");
+		}
+	});
+
+
 	// Ocultar - mostrar uploader
 	$("#upload_content").hide();
 	$("#upload_unfold").click(function() {
@@ -536,6 +621,61 @@ $(function() {
 			$(this).find("img").attr("src", "images/toggle_2.jpeg");
 		} else {
 			$(this).find("img").attr("src", "images/toggle_1.jpeg");
+		}
+	});
+
+	// Palabras usadas
+	$("#used_words").jScrollPane({
+		autoReinitialise: true,
+		hideFocus: true
+	});
+
+	$.ajax({
+		type: "POST",
+		url: "php/used_words.php",
+		dataType: "json",
+		success: function(data) {
+			$("#count_used").html(data.count + " USED WORDS:");
+
+			if(data.used_words.length > 0) {
+				// Se clona el arreglo
+				used_words = data.used_words.splice(0);
+
+				// Ordena las palabras
+				used_words.sort(function(a, b) {
+					if(a.word >= b.word) {
+						return 1;
+					} else if(a.word < b.word) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+
+				// Se ponen en la lista
+				var first_words = used_words.length >= 500 ? 500 : used_words.length;
+				for (var i = 0; i < first_words; i++) {
+					var new_li = document.createElement("li");
+					$(new_li).attr("word", used_words[i].word);
+					$(new_li).attr("id-word", used_words[i].id);
+
+					$(new_li).html(used_words[i].word);
+					$(new_li).addClass("used_word");
+					$(new_li).click(function() {
+						select_used_word(this);
+					});
+
+					// Lo agregamos donde debe de ir
+					$("#used_words").find(".jspPane").append(new_li);
+				}
+
+				// Reiniciamos el scroll.
+				var api = $("#used_words").data('jsp');
+				api.reinitialise();
+			} else {
+				$("#used_words").hide();
+				$("#no_used").show();
+			}
 		}
 	});
 

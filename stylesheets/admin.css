@@ -5,7 +5,7 @@ button[type="button"] {
 
 #search_bar {
 	width: 100%;
-	height: 100px;
+	height: 115px;
 
 	position: fixed;
 	top: 0;
@@ -20,6 +20,8 @@ button[type="button"] {
 
 	margin-left: 4%;
 	margin-top: 25px;
+
+	position: relative;
 	float: left;
 
 	font-family: 'Playfair Display', serif;
@@ -36,6 +38,8 @@ button[type="button"] {
 
 	margin-left: 0.5%;
 	margin-top: 25px;
+
+	position: relative;
 	float: left;
 
 	font-family: 'Playfair Display', serif;
@@ -47,6 +51,8 @@ button[type="button"] {
 
 	margin-left: 0%;
 	margin-top: 42px;
+
+	position: relative;
 	float: left;
 
 	font-family: 'Playfair Display', serif;
@@ -73,6 +79,8 @@ button[type="button"] {
 
 	margin-left: 3%;
 	margin-top: 45px;
+
+	position: relative;
 	float: left;
 
 	font-family: 'Playfair Display', serif;
@@ -87,7 +95,7 @@ button[type="button"] {
 	width: 80%;
 
 	margin-left: 10%;
-	margin-top: 105px;
+	margin-top: 140px;
 }
 
 .photo_option {
@@ -158,6 +166,8 @@ button[type="button"] {
 	width: 7%;
 
 	margin-top: 42px;
+
+	position: relative;
 	float: left;
 
 	font-family: 'Playfair Display', serif;
@@ -341,13 +351,13 @@ button[type="button"] {
 	color: #FFFFFF;
 }
 
-#dictionary_tool input[type="text"] {
+#dictionary_tool input[type="text"], #used_tool input[type="text"] {
 	width: 80%;
 	border: 1px solid #000;
 	font-family: 'Playfair Display', serif;
 }
 
-#dictionary_tool input[type="text"]:focus {
+#dictionary_tool input[type="text"]:focus, #used_tool input[type="text"]:focus {
 	outline: none;
 }
 
@@ -733,12 +743,61 @@ button[type="button"] {
 	display: none;
 }
 
+/*********** USED **************/
+
+#used_tool {
+	width: 16%;
+	
+	float: left;
+	margin-left: 4%;
+
+	font-family: 'Playfair Display', serif;
+	font-size: 0.8em;
+
+	background: #FFF;
+}
+
+#used_content {
+	width: 101%;
+	height: 450px;
+
+	position: relative;
+	padding-top: 10px;
+
+	background: #FFF;
+}
+
+#used_words {
+	width: 94%;
+	height: 350px;
+	list-style: none;
+	overflow-x: hidden;
+
+	margin-left: -15%;
+	background: #FFF;
+}
+
+.used_word:hover {
+	cursor: pointer;
+
+	color: #FFF;
+	background: #000;
+}
+
+#no_used {
+	color: #FF0000;
+	margin-left: 3.5%;
+	font-size: 1.2em;
+}
+
 /*********** UPLOAD **************/
 
 #upload_tool {
 	width: 15%;
 	
+	position: relative;
 	float: left;
+
 	margin-left: 1%;
 	margin-top: 44px;
 
@@ -748,7 +807,7 @@ button[type="button"] {
 	background: #FFF;
 }
 
-#upload_header {
+#upload_header, #used_header {
 	width: 100%;
 	height: 19px;
 
@@ -756,7 +815,7 @@ button[type="button"] {
 	border: 1px solid #000;
 }
 
-#upload_title {
+#upload_title, #used_title {
 	width: 85%;
 	height: inherit;
 
@@ -824,7 +883,6 @@ button[type="button"] {
 .dropzone-previews .dz-preview {
 	background: rgba(255,255,255,0.8);
 	position: relative;
-	display: inline-block;
 	vertical-align: top;
 	margin-top: 24px;
 	margin-left: 15%;
