@@ -508,6 +508,8 @@ $(function() {
 		}
 	});
 
+	$("#no_used").hide();
+
 	// Evento de filtrar palabras usadas
 	$("#filter_used").keypress(function(event) {
 		if(event.keyCode == 32) {
@@ -538,6 +540,7 @@ $(function() {
 			if(filtered_used.length > 0) {
 				$("#used_words").find(".jspPane").empty();
 				$("#used_words").show();
+				$("#no_used").hide();
 
 				// Se ponen en la lista
 				for (var i = 0; i < filtered_used.length; i++) {
@@ -638,6 +641,8 @@ $(function() {
 			$("#count_used").html(data.count + " USED WORDS:");
 
 			if(data.used_words.length > 0) {
+				$("#no_used").hide();
+
 				// Se clona el arreglo
 				used_words = data.used_words.splice(0);
 
