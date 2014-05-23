@@ -237,9 +237,8 @@
 				<?php
 					foreach ($selectionData as &$data) {
 						$html_str = 
-						"<div class='photo_selection' id-photo='".$data["id"]."'>
+						"<div class='photo_selection' id-photo='".$data["id"]."' url-photo='".$data["url"]."'>
 							<div class='info_selection'>[".$data["id"]."]</div>
-							<img class='photo_img' src='".$data["url"]."' data-zoom-image='".$data["url"]."' />
 
 							<div class='words_photo_container'>
 								<span style=\"font-family: 'Playfair Display', serif; font-size: 0.89em; margin-left: 15%;\">ASSIGNED</span>

@@ -929,7 +929,7 @@ function associate_synonyms_one(li_elem) {
 
  var wall; // El muro de las fotos
 
-$(function() {
+$(document).ready(function() {
 	
 	// Wall
 	wall = new freewall("#admin_selection");
@@ -943,22 +943,52 @@ $(function() {
 		}
 	});
 
+	// Poniendo bien el wall
 	var images = wall.container.find('.photo_selection');
-	var length = images.length;
-	images.css({visibility: 'hidden'});
-	images.find('img').load(function() {
-		-- length;
-		if (!length) {
-			setTimeout(function() {
-				images.css({visibility: 'visible'});
-				wall.fitWidth();
-			}, 505);
-		}
+	images.css({
+		visibility: 'hidden'
 	});
+	var length = images.length;
+	var counter_images = 0;
+	images.each(function() {
+		
+		var new_img = new Image();
+		$(new_img).addClass("photo_img");
+		$(new_img).attr("data-zoom-image", $(this).attr("url-photo"));
+		var that = this;
 
-	// Zoom en las imágenes
-	$(".photo_img").elevateZoom({
-		borderSize: 0
+		var ul_words = $(this).find(".words_select")[0];
+
+		new_img.onload = function() {
+			counter_images++;
+			if(counter_images >= length) {
+				setTimeout(function() {
+					images.css({
+						visibility: 'visible'
+					});
+					wall.fitWidth();
+				}, 505);
+			}
+
+			// Se agrega
+			$(that).append(new_img);
+
+			// Zoom
+			$(new_img).elevateZoom({
+				borderSize: 0
+			});
+
+			// Scroll en las palabras
+			$(ul_words).css({
+				"height" : ($(that).find(".photo_img").first().height() * 0.95) + "px"
+			});
+			$(ul_words).jScrollPane({
+				autoReinitialise: true,
+				hideFocus: true
+			});
+		};
+
+		new_img.src = $(this).attr("url-photo");
 	});
 
 	// Efecto mostrar borrar palabras
@@ -966,19 +996,6 @@ $(function() {
 		$(this).find("span").show();
 	}, function() {
 		$(this).find("span").hide();
-	});
-
-	// Nice scrolling
-	$(".words_select").each(function(index) {
-		var that = this;
-		var img = $(this).parent().parent().find("img");
-		img.load(function() {
-			$(that).css({"height" : ($(img).height()) + "px"});
-			$(that).jScrollPane({
-				autoReinitialise: true,
-				hideFocus: true
-			});
-		});
 	});
 
 	// Scroll en diccionario
@@ -1115,4 +1132,5 @@ $(function() {
 		$(input_elem).attr("play", "1");
 		random_word(input_elem);
 	});
+
 });
