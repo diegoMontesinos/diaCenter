@@ -263,7 +263,6 @@ button[type="button"] {
 	position: relative;
 
 	float: left;
-	overflow: hidden;
 }
 
 .photo_selection img {

@@ -978,11 +978,18 @@ $(document).ready(function() {
 				borderSize: 0
 			});
 
-			// Scroll en las palabras
+			var height_photo = $(that).find(".photo_img").first().height();
+
 			$(ul_words).css({
-				"height" : ($(that).find(".photo_img").first().height() * 0.95) + "px"
+				"height" : (height_photo) + "px"
 			});
-			$(ul_words).jScrollPane({
+			$(ul_words).bind("jsp-initialised", function(event, isScrollable) {
+				// Se redimensiona el area scrollable
+				var jspContainer = $(this).find(".jspContainer").first();
+				jspContainer.css({
+					"height" : (height_photo * 1.45) + "px"
+				});
+			}).jScrollPane({
 				autoReinitialise: true,
 				hideFocus: true
 			});
