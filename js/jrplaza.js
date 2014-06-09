@@ -592,6 +592,12 @@ function launchFullScreen(element) {
 
 $(document).ready(function() {
 
+	// Bloqueamos los clicks derechos
+	function disableContextMenu() { 
+		return false;
+	}
+	document.oncontextmenu = disableContextMenu;
+
 	// Ponemos el tipo de pantalla
 	if ($(window).width() <= 1009) {
 		screenFlag = "mobile";
